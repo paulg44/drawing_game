@@ -1,13 +1,18 @@
 import "./App.css";
-import Canvas from "./Components/Canvas";
-import PictureDisplay from "./Components/PictureDisplay";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./Pages/Homepage";
+import GamePage from "./Pages/GamePage";
+import Scores from "./Pages/Scores";
 
 function App() {
   return (
-    <div className="App">
-      <PictureDisplay />
-      <Canvas />
-    </div>
+    <BrowserRouter className="App">
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/score" element={<Scores />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
