@@ -1,4 +1,4 @@
-import "../css/PictureDisplay.css";
+import "../assets/css/PictureDisplay.css";
 
 function PictureDisplay() {
   return (

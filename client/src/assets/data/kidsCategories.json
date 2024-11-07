@@ -1,0 +1,92 @@
+{
+  "kidsCategories": {
+    "shapes": [
+      {
+        "id": 1,
+        "name": "circle",
+        "image": "path/to/circle.png"
+      },
+      {
+        "id": 2,
+        "name": "square",
+        "image": "path/to/square.png"
+      },
+      {
+        "id": 3,
+        "name": "triangle",
+        "image": "path/to/triangle.png"
+      },
+      {
+        "id": 4,
+        "name": "rectangle",
+        "image": "path/to/rectangle.png"
+      }
+    ],
+    "letters": [
+      {
+        "id": 1,
+        "name": "A",
+        "image": "path/to/A.png"
+      },
+      {
+        "id": 2,
+        "name": "B",
+        "image": "path/to/B.png"
+      },
+      {
+        "id": 3,
+        "name": "C",
+        "image": "path/to/C.png"
+      },
+      {
+        "id": 4,
+        "name": "D",
+        "image": "path/to/D.png"
+      }
+    ],
+    "numbers": [
+      {
+        "id": 1,
+        "name": 1,
+        "image": "path/to/1.png"
+      },
+      {
+        "id": 2,
+        "name": 2,
+        "image": "path/to/2.png"
+      },
+      {
+        "id": 3,
+        "name": 3,
+        "image": "path/to/3.png"
+      },
+      {
+        "id": 4,
+        "name": 4,
+        "image": "path/to/4.png"
+      }
+    ],
+    "animals": [
+      {
+        "id": 1,
+        "name": "cat",
+        "image": "path/to/cat.png"
+      },
+      {
+        "id": 2,
+        "name": "dog",
+        "image": "path/to/dog.png"
+      },
+      {
+        "id": 3,
+        "name": "elephant",
+        "image": "path/to/elephant.png"
+      },
+      {
+        "id": 4,
+        "name": "lion",
+        "image": "path/to/lion.png"
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import "../css/Canvas.css";
+import "../assets/css/Canvas.css";
 
 function Canvas() {
   return (
