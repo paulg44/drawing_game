@@ -1,7 +1,9 @@
 import { useLocation } from "react-router-dom";
+import { Stage, Layer, Circle } from "react-konva";
 import "../assets/css/GamePage.css";
 
 function GamePage() {
+  // Display Side
   const { state } = useLocation();
   const category = state?.category;
 
@@ -27,9 +29,12 @@ function GamePage() {
       </div>
       <div className="canvasContainer">
         <h2>Canvas Side</h2>
+        <Stage width={window.innerWidth} height={window.innerHeight}>
+          <Layer>
+            <Circle x={100} y={100} radius={50} fill="red" draggable />
+          </Layer>
+        </Stage>
       </div>
-      {/* <PictureDisplay />
-      <Canvas /> */}
     </div>
   );
 }

@@ -4,22 +4,22 @@
       {
         "id": 1,
         "name": "circle",
-        "image": "path/to/circle.png"
+        "image": "/images/shapes/circle.jpg"
       },
       {
         "id": 2,
         "name": "square",
-        "image": "/images/shapes/vecteezy_box-icon-on-a-white-background_.jpg"
+        "image": "/images/shapes/square.jpg"
       },
       {
         "id": 3,
         "name": "triangle",
-        "image": "path/to/triangle.png"
+        "image": "/images/shapes/triangle.jpg"
       },
       {
         "id": 4,
-        "name": "rectangle",
-        "image": "path/to/rectangle.png"
+        "name": "star",
+        "image": "/images/shapes/star.jpg"
       }
     ],
     "letters": [
