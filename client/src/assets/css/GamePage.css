@@ -1,3 +1,15 @@
 .gamePage {
   display: flex;
 }
+
+.pictureDisplayContainer {
+  border: 2px solid blue;
+  width: 50vw;
+  height: 100vh;
+}
+
+.canvasContainer {
+  border: 2px solid red;
+  width: 50vw;
+  height: 100vh;
+}
