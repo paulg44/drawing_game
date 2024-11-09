@@ -18,7 +18,10 @@ function GamePage() {
         {/* Replace with one random image */}
         <ul>
           {category.items.map((item) => (
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>
+              {item.name}
+              <img src={item.image} alt={item.name} />
+            </li>
           ))}
         </ul>
       </div>
