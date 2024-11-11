@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { Stage, Layer, Circle, Text, Line } from "react-konva";
+import { Stage, Layer, Text, Line } from "react-konva";
 import "../assets/css/GamePage.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function GamePage() {
   // Canvas Side
@@ -34,31 +34,45 @@ function GamePage() {
   };
 
   // Display Side
+  const [randomItem, setRandomItem] = useState(null);
   const { state } = useLocation();
   const category = state?.category;
 
-  console.log(category);
+  useEffect(() => {
+    if (category && category.items.length > 0) {
+      const pickRandom = Math.floor(Math.random() * category.items.length);
+      const selectedItem = category.items[pickRandom];
+      setRandomItem(selectedItem);
+    }
+    console.log(category, randomItem);
+  }, [category, randomItem]);
 
-  if (!category) {
-    return <div>No category selected</div>;
+  if (!category || category.length === 0) {
+    return <div>No category selected or category is empty</div>;
   }
 
   return (
     <div className="gamePage">
       <div className="pictureDisplayContainer">
         <h2>Display Side</h2>
-        {/* Replace with one random image */}
-        <ul>
-          {category.items.map((item) => (
-            <li key={item.id}>
-              {item.name}
-              <img src={item.image} alt={item.name} />
-            </li>
-          ))}
-        </ul>
+        {randomItem && (
+          <>
+            <h3>{randomItem.name}</h3>
+            <img src={randomItem.image} alt={randomItem.name} />
+          </>
+        )}
       </div>
       <div className="canvasContainer">
         <h2>Canvas Side</h2>
+        <select
+          value={tool}
+          onChange={(e) => {
+            setTool(e.target.value);
+          }}
+        >
+          <option value="pen">Pen</option>
+          <option value="eraser">Eraser</option>
+        </select>
         <Stage
           width={window.innerWidth}
           height={window.innerHeight}
@@ -73,7 +87,7 @@ function GamePage() {
                 key={i}
                 points={line.points}
                 stroke="#df4b26"
-                strokeWidth={5}
+                strokeWidth={3}
                 tension={0.5}
                 lineCap="round"
                 lineJoin="round"
@@ -84,15 +98,6 @@ function GamePage() {
             ))}
           </Layer>
         </Stage>
-        <select
-          value={tool}
-          onChange={(e) => {
-            setTool(e.target.value);
-          }}
-        >
-          <option value="pen">Pen</option>
-          <option value="eraser">Eraser</option>
-        </select>
       </div>
     </div>
   );
