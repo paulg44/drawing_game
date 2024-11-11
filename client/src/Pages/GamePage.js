@@ -99,8 +99,11 @@ function GamePage() {
           width={canvasSize.width}
           height={canvasSize.height}
           onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
           onMouseMove={handleMouseMove}
+          onTouchMove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          onTouchEnd={handleMouseUp}
         >
           <Layer>
             <Text text="Draw away!" x={5} y={30} />

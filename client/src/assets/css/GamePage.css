@@ -1,6 +1,7 @@
 .gamePage {
   display: flex;
   text-align: center;
+  overflow: hidden;
 }
 
 /* Display Side */
@@ -27,4 +28,21 @@
   border: 2px solid red;
   width: 50vw;
   height: 100vh;
+}
+
+/* Media */
+@media only screen and (max-width: 600px) {
+  .gamePage {
+    display: block;
+  }
+
+  .pictureDisplayContainer,
+  .canvasContainer {
+    height: 50vh;
+    width: 100vw;
+  }
+
+  .pictureDisplayContainer h2 {
+    padding: 0;
+  }
 }
