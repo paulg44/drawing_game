@@ -25,23 +25,27 @@
     "letters": [
       {
         "id": 1,
-        "name": "A",
-        "image": "path/to/A.png"
+        "name": "",
+        "image": "/images/letters/letter_A.jpg",
+        "imageAlt": "A"
       },
       {
         "id": 2,
-        "name": "B",
-        "image": "path/to/B.png"
+        "name": "",
+        "image": "/images/letters/letter_B.jpg",
+        "imageAlt": "B"
       },
       {
         "id": 3,
-        "name": "C",
-        "image": "path/to/C.png"
+        "name": "",
+        "image": "/images/letters/letter_C.jpg",
+        "imageAlt": "C"
       },
       {
         "id": 4,
-        "name": "D",
-        "image": "path/to/D.png"
+        "name": "",
+        "image": "/images/letters/letter_D.jpg",
+        "imageAlt": "D"
       }
     ],
     "numbers": [

@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
 import colorData from "../assets/data/colours.json";
 import { useState } from "react";
@@ -31,6 +32,7 @@ function Homepage() {
       <ul>
         {mainCategories.map((categoryItem, index) => (
           <button
+            className="categoryBtn"
             key={index}
             onClick={() => handleCategorySelection(categoryItem)}
           >
