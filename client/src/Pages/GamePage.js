@@ -9,6 +9,29 @@ function GamePage() {
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
 
+  const canvasContainerRef = useRef(null);
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (canvasContainerRef.current) {
+      setCanvasSize({
+        width: canvasContainerRef.current.offsetWidth,
+        height: canvasContainerRef.current.offsetHeight,
+      });
+    }
+
+    const handleResize = () => {
+      if (canvasContainerRef.current) {
+        setCanvasSize({
+          width: canvasContainerRef.current.offsetWidth,
+          height: canvasContainerRef.current.offsetHeight,
+        });
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
@@ -54,15 +77,14 @@ function GamePage() {
   return (
     <div className="gamePage">
       <div className="pictureDisplayContainer">
-        <h2>Display Side</h2>
         {randomItem && (
           <>
-            <h3>{randomItem.name}</h3>
+            <h2>{randomItem.name}</h2>
             <img src={randomItem.image} alt={randomItem.name} />
           </>
         )}
       </div>
-      <div className="canvasContainer">
+      <div className="canvasContainer" ref={canvasContainerRef}>
         <h2>Canvas Side</h2>
         <select
           value={tool}
@@ -74,8 +96,8 @@ function GamePage() {
           <option value="eraser">Eraser</option>
         </select>
         <Stage
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width={canvasSize.width}
+          height={canvasSize.height}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -87,7 +109,7 @@ function GamePage() {
                 key={i}
                 points={line.points}
                 stroke="#df4b26"
-                strokeWidth={3}
+                strokeWidth={line.tool === "eraser" ? 26 : 8}
                 tension={0.5}
                 lineCap="round"
                 lineJoin="round"

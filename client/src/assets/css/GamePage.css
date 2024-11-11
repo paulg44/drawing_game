@@ -3,12 +3,26 @@
   text-align: center;
 }
 
+/* Display Side */
 .pictureDisplayContainer {
   border: 2px solid blue;
   width: 50vw;
   height: 100vh;
 }
 
+.pictureDisplayContainer h2 {
+  position: absolute;
+  font-size: 60px;
+  padding-top: 20px;
+  margin-left: 25%;
+  transform: translateX(-50%);
+}
+
+.pictureDisplayContainer img {
+  width: 100%;
+}
+
+/* Canvas Side */
 .canvasContainer {
   border: 2px solid red;
   width: 50vw;
