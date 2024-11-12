@@ -36,7 +36,7 @@ function GamePage() {
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, { tool, points: [pos.x, pos.y] }]);
+    setLines([...lines, { tool, points: [pos.x, pos.y], color }]);
   };
 
   const handleMouseMove = (e) => {
@@ -103,33 +103,33 @@ function GamePage() {
           </select>
           <div className="colorPickerContainer">
             <input
-              type="checkbox"
+              type="radio"
               id="redColor"
-              name="red"
+              name="color"
               value="#FF0000"
               onChange={handleColorPicker}
             />
             <label>Red</label>
             <input
-              type="checkbox"
+              type="radio"
               id="blueColor"
-              name="blue"
+              name="color"
               value="#0000FF"
               onChange={handleColorPicker}
             />
             <label>Blue</label>
             <input
-              type="checkbox"
+              type="radio"
               id="greenColor"
-              name="green"
+              name="color"
               value="#00FF00"
               onChange={handleColorPicker}
             />
             <label>Green</label>
             <input
-              type="checkbox"
+              type="radio"
               id="purpleColor"
-              name="purple"
+              name="color"
               value="#6600FF"
               onChange={handleColorPicker}
             />
@@ -152,7 +152,7 @@ function GamePage() {
               <Line
                 key={i}
                 points={line.points}
-                stroke={color}
+                stroke={line.color}
                 strokeWidth={line.tool === "eraser" ? 26 : 8}
                 tension={0.5}
                 lineCap="round"
