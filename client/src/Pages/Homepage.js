@@ -40,14 +40,7 @@ function Homepage() {
           </button>
         ))}
       </ul>
-      <h5>Pen Colour</h5>
-      <ul>
-        {colorData.colors.map((colorItem) => (
-          <button key={colorItem.id}>
-            <li style={{ color: colorItem.hex }}>{colorItem.name}</li>
-          </button>
-        ))}
-      </ul>
+
       {/* Placeholders for now */}
       <button onClick={startGame}>Start Game</button>
       <Link to="/score">Scores</Link>

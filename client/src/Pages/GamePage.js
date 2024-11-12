@@ -7,6 +7,7 @@ function GamePage() {
   // Canvas Side
   const [tool, setTool] = useState("pen");
   const [lines, setLines] = useState([]);
+  const [color, setColor] = useState("#000");
   const isDrawing = useRef(false);
 
   const canvasContainerRef = useRef(null);
@@ -56,6 +57,10 @@ function GamePage() {
     isDrawing.current = false;
   };
 
+  const handleColorPicker = (e) => {
+    setColor(e.target.value);
+  };
+
   // Display Side
   const [randomItem, setRandomItem] = useState(null);
   const { state } = useLocation();
@@ -86,15 +91,51 @@ function GamePage() {
       </div>
       <div className="canvasContainer" ref={canvasContainerRef}>
         <h2>Canvas Side</h2>
-        <select
-          value={tool}
-          onChange={(e) => {
-            setTool(e.target.value);
-          }}
-        >
-          <option value="pen">Pen</option>
-          <option value="eraser">Eraser</option>
-        </select>
+        <div className="canvasTools">
+          <select
+            value={tool}
+            onChange={(e) => {
+              setTool(e.target.value);
+            }}
+          >
+            <option value="pen">Pen</option>
+            <option value="eraser">Eraser</option>
+          </select>
+          <div className="colorPickerContainer">
+            <input
+              type="checkbox"
+              id="redColor"
+              name="red"
+              value="#FF0000"
+              onChange={handleColorPicker}
+            />
+            <label>Red</label>
+            <input
+              type="checkbox"
+              id="blueColor"
+              name="blue"
+              value="#0000FF"
+              onChange={handleColorPicker}
+            />
+            <label>Blue</label>
+            <input
+              type="checkbox"
+              id="greenColor"
+              name="green"
+              value="#00FF00"
+              onChange={handleColorPicker}
+            />
+            <label>Green</label>
+            <input
+              type="checkbox"
+              id="purpleColor"
+              name="purple"
+              value="#6600FF"
+              onChange={handleColorPicker}
+            />
+            <label>Purple</label>
+          </div>
+        </div>
         <Stage
           width={canvasSize.width}
           height={canvasSize.height}
@@ -111,7 +152,7 @@ function GamePage() {
               <Line
                 key={i}
                 points={line.points}
-                stroke="#df4b26"
+                stroke={color}
                 strokeWidth={line.tool === "eraser" ? 26 : 8}
                 tension={0.5}
                 lineCap="round"
