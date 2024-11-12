@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
-import colorData from "../assets/data/colours.json";
 import { useState } from "react";
 
 function Homepage() {
