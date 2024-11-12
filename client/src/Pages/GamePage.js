@@ -34,15 +34,12 @@ function GamePage() {
   }, []);
 
   const handleMouseDown = (e) => {
-    e.preventDefault();
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y], color }]);
   };
 
   const handleMouseMove = (e) => {
-    e.preventDefault();
-
     if (!isDrawing.current) {
       return;
     }
@@ -57,8 +54,6 @@ function GamePage() {
   };
 
   const handleMouseUp = (e) => {
-    e.preventDefault();
-
     isDrawing.current = false;
   };
 
