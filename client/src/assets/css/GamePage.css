@@ -30,6 +30,12 @@
   height: 100vh;
 }
 
+.canvasTools {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 /* Media */
 @media only screen and (max-width: 600px) {
   .gamePage {

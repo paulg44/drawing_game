@@ -61,6 +61,10 @@ function GamePage() {
     setColor(e.target.value);
   };
 
+  const handleClearPage = () => {
+    setLines([]);
+  };
+
   // Display Side
   const [randomItem, setRandomItem] = useState(null);
   const { state } = useLocation();
@@ -101,6 +105,9 @@ function GamePage() {
             <option value="pen">Pen</option>
             <option value="eraser">Eraser</option>
           </select>
+          <button type="button" onClick={handleClearPage}>
+            Clear Page
+          </button>
           <div className="colorPickerContainer">
             <input
               type="radio"
