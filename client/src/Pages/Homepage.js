@@ -5,7 +5,6 @@ import { useState } from "react";
 
 function Homepage() {
   const [category, setCategory] = useState({});
-  // const [color, setColor] = useState({});
   const mainCategories = Object.keys(kidsData.kidsCategories);
   const navigate = useNavigate();
 

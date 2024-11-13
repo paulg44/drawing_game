@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Stage, Layer, Text, Line } from "react-konva";
+import { Stage, Layer, Line } from "react-konva";
 import "../assets/css/GamePage.css";
 import { useEffect, useRef, useState } from "react";
 
@@ -9,6 +9,8 @@ function GamePage() {
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState("#000");
   const isDrawing = useRef(false);
+
+  const stageRef = useRef(false);
 
   const canvasContainerRef = useRef(null);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
@@ -55,6 +57,17 @@ function GamePage() {
 
   const handleMouseUp = (e) => {
     isDrawing.current = false;
+  };
+
+  const handleSaveImage = () => {
+    const dataURL = stageRef.current.toDataURL();
+
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = "canvas_drawing.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleColorPicker = (e) => {
@@ -142,10 +155,12 @@ function GamePage() {
             />
             <label>Purple</label>
           </div>
+          <button onClick={handleSaveImage}>Save Image</button>
         </div>
         <Stage
           width={canvasSize.width}
           height={canvasSize.height}
+          ref={stageRef}
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -154,7 +169,6 @@ function GamePage() {
           onTouchEnd={handleMouseUp}
         >
           <Layer>
-            <Text text="Draw away!" x={5} y={30} />
             {lines.map((line, i) => (
               <Line
                 key={i}
