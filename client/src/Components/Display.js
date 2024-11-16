@@ -7,7 +7,7 @@ function Display() {
   const { category } = useCategory();
 
   useEffect(() => {
-    if (category && category.items.length > 0) {
+    if (category?.items?.length > 0) {
       const pickRandom = Math.floor(Math.random() * category.items.length);
       const selectedItem = category.items[pickRandom];
       setRandomItem(selectedItem);
@@ -16,7 +16,7 @@ function Display() {
   }, [category, randomItem]);
 
   if (!category || category.length === 0) {
-    return <div>No category selected or category is empty</div>;
+    return <h2>No category selected or category is empty</h2>;
   }
   return (
     <div className="pictureDisplayContainer">
