@@ -16,10 +16,20 @@ function Display() {
   }, [category, randomItem]);
 
   if (!category || category.length === 0) {
-    return <h2>No category selected or category is empty</h2>;
+    return (
+      <div>
+        <h2>No category selected or category is empty</h2>
+        <p>If you refreshed the page please go back</p>
+      </div>
+    );
   }
+
+  const handleRespin = () => {
+    setRandomItem(null);
+  };
   return (
     <div className="pictureDisplayContainer">
+      <button onClick={handleRespin}>Re-spin</button>
       {randomItem && (
         <>
           <h2>{randomItem.name}</h2>
