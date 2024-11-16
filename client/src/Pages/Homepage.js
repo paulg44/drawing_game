@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
-import { useState } from "react";
+// import { useState } from "react";
+import { useCategory } from "../context/CategoryContext";
 
 function Homepage() {
-  const [category, setCategory] = useState({});
+  const { category, setCategory } = useCategory();
   const mainCategories = Object.keys(kidsData.kidsCategories);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function Homepage() {
 
   function startGame() {
     if (category) {
-      navigate("/game", { state: { category } });
+      navigate("/game");
     } else {
       console.error("Category should be selected");
     }

@@ -1,12 +1,10 @@
-import { useLocation } from "react-router-dom";
-
+import { useCategory } from "../context/CategoryContext";
 import { useEffect, useState } from "react";
 
 function Display() {
   // Display Side
   const [randomItem, setRandomItem] = useState(null);
-  const { state } = useLocation();
-  const category = state?.category;
+  const { category } = useCategory();
 
   useEffect(() => {
     if (category && category.items.length > 0) {
