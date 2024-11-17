@@ -53,7 +53,7 @@ function Canvas() {
     setLines(lines.concat());
   };
 
-  const handleMouseUp = (e) => {
+  const handleMouseUp = () => {
     isDrawing.current = false;
   };
 

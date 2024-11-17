@@ -27,9 +27,26 @@ function Display() {
   const handleRespin = () => {
     setRandomItem(null);
   };
+
+  let audio = null;
+
+  const handleDictionaryAPI = async () => {
+    const apiResponse = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${randomItem.name}`
+    );
+    const apiData = await apiResponse.json();
+    const audioUrl =
+      apiData[0].phonetics[1].audio || apiData[0].phonetics[0].audio;
+    if (audio) {
+      audio.pause();
+    }
+    audio = new Audio(audioUrl);
+    audio.play();
+  };
   return (
     <div className="pictureDisplayContainer">
       <button onClick={handleRespin}>Re-spin</button>
+      <button onClick={handleDictionaryAPI}>Click to Play Sound</button>
       {randomItem && (
         <>
           <h2>{randomItem.name}</h2>
