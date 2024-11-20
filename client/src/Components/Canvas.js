@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { HexColorPicker } from "react-colorful";
 
 import { Stage, Layer, Line } from "react-konva";
 function Canvas() {
@@ -68,10 +69,6 @@ function Canvas() {
     document.body.removeChild(link);
   };
 
-  const handleColorPicker = (e) => {
-    setColor(e.target.value);
-  };
-
   const handleClearPage = () => {
     setLines([]);
   };
@@ -92,38 +89,7 @@ function Canvas() {
           Clear Page
         </button>
         <div className="colorPickerContainer">
-          <input
-            type="radio"
-            id="redColor"
-            name="color"
-            value="#FF0000"
-            onChange={handleColorPicker}
-          />
-          <label>Red</label>
-          <input
-            type="radio"
-            id="blueColor"
-            name="color"
-            value="#0000FF"
-            onChange={handleColorPicker}
-          />
-          <label>Blue</label>
-          <input
-            type="radio"
-            id="greenColor"
-            name="color"
-            value="#00FF00"
-            onChange={handleColorPicker}
-          />
-          <label>Green</label>
-          <input
-            type="radio"
-            id="purpleColor"
-            name="color"
-            value="#6600FF"
-            onChange={handleColorPicker}
-          />
-          <label>Purple</label>
+          <HexColorPicker color={color} onChange={setColor} />
         </div>
         <button onClick={handleSaveImage}>Save Image</button>
       </div>
