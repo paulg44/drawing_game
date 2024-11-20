@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import { Popup } from "reactjs-popup";
 
 import { Stage, Layer, Line } from "react-konva";
 function Canvas() {
@@ -88,9 +89,13 @@ function Canvas() {
         <button type="button" onClick={handleClearPage}>
           Clear Page
         </button>
-        <div className="colorPickerContainer">
-          <HexColorPicker color={color} onChange={setColor} />
-        </div>
+        <Popup trigger={<button>Pick Color</button>}>
+          <div className="colorPickerContainer">
+            {" "}
+            <HexColorPicker color={color} onChange={setColor} />
+          </div>
+        </Popup>
+
         <button onClick={handleSaveImage}>Save Image</button>
       </div>
       <Stage
