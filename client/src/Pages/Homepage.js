@@ -3,6 +3,7 @@ import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
 // import { useState } from "react";
 import { useCategory } from "../context/CategoryContext";
+import backgroundIMG from "../assets/images/backgroundHomepage.jpg";
 
 function Homepage() {
   const { category, setCategory } = useCategory();
@@ -25,7 +26,12 @@ function Homepage() {
   console.log(category);
 
   return (
-    <div className="homepage">
+    <div
+      className="homepage"
+      style={{
+        background: `url(${backgroundIMG}) no-repeat center center/cover`,
+      }}
+    >
       <h1>Welcome to Ivy's game!</h1>
       <h5>Pick a category</h5>
       <ul>
