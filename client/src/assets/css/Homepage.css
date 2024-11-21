@@ -1,12 +1,23 @@
 .homepage {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.categoryListContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  /* grid-gap: 20px; */
+}
+
 .categoryBtn:focus {
   border: 2px solid red;
+}
+
+.startBtn {
+  /* margin-top: 30px; */
 }

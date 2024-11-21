@@ -1,3 +1,4 @@
+import "../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
@@ -89,7 +90,7 @@ function Canvas() {
         <button type="button" onClick={handleClearPage}>
           Clear Page
         </button>
-        <Popup trigger={<button>Pick Color</button>}>
+        <Popup className="popup=content" trigger={<button>Pick Color</button>}>
           <div className="colorPickerContainer">
             {" "}
             <HexColorPicker color={color} onChange={setColor} />

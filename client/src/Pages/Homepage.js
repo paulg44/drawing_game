@@ -34,20 +34,22 @@ function Homepage() {
     >
       <h1>Welcome to Ivy's game!</h1>
       <h5>Pick a category</h5>
-      <ul>
+      <div className="categoryListContainer">
         {mainCategories.map((categoryItem, index) => (
           <button
             className="categoryBtn"
             key={index}
             onClick={() => handleCategorySelection(categoryItem)}
           >
-            <li>{categoryItem}</li>
+            {categoryItem}
           </button>
         ))}
-      </ul>
+      </div>
 
       {/* Placeholders for now */}
-      <button onClick={startGame}>Start Game</button>
+      <button className="startBtn" onClick={startGame}>
+        Start Game
+      </button>
       <Link to="/score">Scores</Link>
     </div>
   );
