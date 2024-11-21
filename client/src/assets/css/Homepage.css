@@ -14,8 +14,44 @@
   /* grid-gap: 20px; */
 }
 
+.categoryBtn {
+  border-radius: 20px;
+  border: 3px solid black;
+  background-color: white;
+  transition: background 1.5s ease-in-out;
+  box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.4);
+}
+
+.shapes:hover {
+  color: transparent;
+  background: url("../images/shapes_background.jpg") no-repeat center
+    center/cover;
+}
+
+.letters:hover {
+  color: transparent;
+
+  background: url("../images/lettersBackground.jpg") no-repeat center
+    center/cover;
+}
+
+.numbers:hover {
+  color: transparent;
+
+  background: url("../images/numbers_background.jpg") no-repeat center
+    center/cover;
+}
+
+.animals:hover {
+  color: transparent;
+
+  background: url("../images/animals_background.jpg") no-repeat center
+    center/cover;
+}
+
 .categoryBtn:focus {
-  border: 2px solid red;
+  border: 2px solid rgba(4, 29, 120, 1);
+  box-shadow: 0 0 20px rgba(4, 29, 120, 1);
 }
 
 .startBtn {

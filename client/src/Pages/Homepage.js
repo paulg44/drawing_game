@@ -33,11 +33,10 @@ function Homepage() {
       }}
     >
       <h1>Welcome to Ivy's game!</h1>
-      <h5>Pick a category</h5>
       <div className="categoryListContainer">
         {mainCategories.map((categoryItem, index) => (
           <button
-            className="categoryBtn"
+            className={`categoryBtn ${categoryItem}`}
             key={index}
             onClick={() => handleCategorySelection(categoryItem)}
           >
@@ -46,7 +45,12 @@ function Homepage() {
         ))}
       </div>
 
-      {/* Placeholders for now */}
+      {!category ? (
+        <h4>Please pick a category</h4>
+      ) : (
+        <h4>You have picked {category.name}</h4>
+      )}
+
       <button className="startBtn" onClick={startGame}>
         Start Game
       </button>
