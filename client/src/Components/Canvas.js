@@ -4,7 +4,7 @@ import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { Stage, Layer, Line } from "react-konva";
 
-function Canvas() {
+function Canvas({ randomItem }) {
   // Canvas Side
   const [tool, setTool] = useState("pen");
   const [lines, setLines] = useState([]);
@@ -61,7 +61,23 @@ function Canvas() {
   };
 
   const handleSaveImage = async () => {
-    const dataURL = stageRef.current.toDataURL();
+    const getBase64Image = (img) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      return canvas.toDataURL("image/png");
+    };
+
+    const userImageDataURL = stageRef.current.toDataURL();
+
+    const randomImageSrc = randomItem.image;
+
+    const randomImage = new Image();
+    randomItem.src = randomImageSrc;
+
+    const randomImageDataUrl = getBase64Image(randomImage);
 
     try {
       const response = await fetch("/save-image", {
@@ -69,7 +85,11 @@ function Canvas() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ image: dataURL }),
+        body: JSON.stringify({
+          userImage: userImageDataURL,
+          randomImage: randomImageDataUrl,
+          metadata: randomItem,
+        }),
       });
 
       if (!response.ok) {
@@ -77,7 +97,7 @@ function Canvas() {
       }
 
       const data = await response.json();
-      console.log("Image saved successfully client:", data, dataURL);
+      console.log("Image saved successfully client:", data);
     } catch (error) {
       console.error("Error saving image client side:", error);
     }
@@ -86,6 +106,7 @@ function Canvas() {
   const handleClearPage = () => {
     setLines([]);
   };
+
   return (
     <div className="canvasContainer" ref={canvasContainerRef}>
       <h2>Canvas Side</h2>
