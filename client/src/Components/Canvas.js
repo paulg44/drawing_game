@@ -61,32 +61,23 @@ function Canvas({ randomItem }) {
   };
 
   const handleSaveImage = async () => {
-    const getBase64Image = (img) => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      return canvas.toDataURL("image/png");
-    };
+    const userImageData = stageRef.current.toDataURL();
 
-    const userImageDataURL = stageRef.current.toDataURL();
-
-    const randomImageSrc = randomItem.image;
-
-    const randomImage = new Image();
-    randomItem.src = randomImageSrc;
-
-    const randomImageDataUrl = getBase64Image(randomImage);
+    const randomImageUrl = randomItem.image;
 
     try {
-      const response = await fetch("/save-image", {
+      const response = await fetch(randomImageUrl);
+      const blob = await response.blob();
+
+      const randomImageDataUrl = await convertToBase64(blob);
+
+      const saveResponse = await fetch("/save-image", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userImage: userImageDataURL,
+          userImage: userImageData,
           randomImage: randomImageDataUrl,
           metadata: randomItem,
         }),
@@ -96,11 +87,20 @@ function Canvas({ randomItem }) {
         throw new Error(`Server error: ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const data = await saveResponse.json();
       console.log("Image saved successfully client:", data);
     } catch (error) {
       console.error("Error saving image client side:", error);
     }
+  };
+
+  const convertToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   };
 
   const handleClearPage = () => {

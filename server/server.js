@@ -10,6 +10,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "100mb" }));
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "client", "assets", "data"))
+);
 
 app.post("/save-image", (req, res) => {
   const { userImage, randomImage, metadata } = req.body;
@@ -25,11 +29,19 @@ app.post("/save-image", (req, res) => {
       ""
     );
 
-    const userImageFileName = `${metadata.name}-${Date.now()}.png`;
-    const randomImageFileName = `${metadata.name}-${Date.now()}.png`;
+    const userImageFileName = `${metadata.name}-user.png`;
+    const randomImageFileName = `${metadata.name}-random.png`;
 
-    const userImagePath = path.join(__dirname, "images", userImageFileName);
-    const randomImagePath = path.join(__dirname, "images", randomImageFileName);
+    const userImagePath = path.join(
+      __dirname,
+      "compare_images",
+      userImageFileName
+    );
+    const randomImagePath = path.join(
+      __dirname,
+      "compare_images",
+      randomImageFileName
+    );
 
     fs.mkdirSync(path.dirname(userImagePath), { recursive: true });
 
