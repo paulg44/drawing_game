@@ -2,8 +2,8 @@ import "../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
-
 import { Stage, Layer, Line } from "react-konva";
+
 function Canvas() {
   // Canvas Side
   const [tool, setTool] = useState("pen");
@@ -60,15 +60,27 @@ function Canvas() {
     isDrawing.current = false;
   };
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     const dataURL = stageRef.current.toDataURL();
 
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "canvas_drawing.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const response = await fetch("/save-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: dataURL }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Image saved successfully client:", data, dataURL);
+    } catch (error) {
+      console.error("Error saving image client side:", error);
+    }
   };
 
   const handleClearPage = () => {
