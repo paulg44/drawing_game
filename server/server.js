@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs-extra";
 import path from "path";
+import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,7 +16,7 @@ app.use(
   express.static(path.join(__dirname, "client", "assets", "data"))
 );
 
-app.post("/save-image", (req, res) => {
+app.post("/save-image", async (req, res) => {
   const { userImage, randomImage, metadata } = req.body;
 
   if (!userImage || !randomImage) {
@@ -25,7 +26,7 @@ app.post("/save-image", (req, res) => {
   try {
     const userBase64Data = userImage.replace(/^data:image\/png;base64,/, "");
     const randomBase64Data = randomImage.replace(
-      /^data:image\/png;base64,/,
+      /^data:image\/(jpeg|png);base64,/,
       ""
     );
 
@@ -45,8 +46,9 @@ app.post("/save-image", (req, res) => {
 
     fs.mkdirSync(path.dirname(userImagePath), { recursive: true });
 
-    fs.writeFile(userImagePath, userBase64Data, "base64");
-    fs.writeFile(randomImagePath, randomBase64Data, "base64");
+    fs.writeFile(userImagePath, Buffer.from(userBase64Data, "base64"));
+    const randomImageBuffer = Buffer.from(randomBase64Data, "base64");
+    await sharp(randomImageBuffer).toFormat("png").toFile(randomImagePath);
 
     res.send({
       message: "Image saved successfully server",

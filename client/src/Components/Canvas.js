@@ -62,48 +62,57 @@ function Canvas({ randomItem }) {
   };
 
   // I am trying two ways of saving and comparing images. This function uses a server, currently saves both the user image and random image to server. However I don't believe it's saving the random image in the correct format as it isn't visible like the users image is.
-  // const handleSaveImage = async () => {
-  //   const userImageData = stageRef.current.toDataURL();
+  const handleSaveImage = async () => {
+    const convertToBase64 = (blob) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
 
-  //   const randomImageUrl = randomItem.image;
+    const userImageData = stageRef.current.toDataURL();
 
-  //   try {
-  //     const response = await fetch(randomImageUrl);
-  //     const blob = await response.blob();
+    const randomImageUrl = randomItem.image;
 
-  //     const randomImageDataUrl = await convertToBase64(blob);
+    try {
+      const response = await fetch(randomImageUrl);
+      const blob = await response.blob();
 
-  //     const saveResponse = await fetch("/save-image", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userImage: userImageData,
-  //         randomImage: randomImageDataUrl,
-  //         metadata: randomItem,
-  //       }),
-  //     });
+      const randomImageDataUrl = await convertToBase64(blob);
 
-  //     if (!response.ok) {
-  //       throw new Error(`Server error: ${response.statusText}`);
-  //     }
+      console.log(
+        "User Image Base64 (first 50 chars):",
+        userImageData.slice(0, 50)
+      );
+      console.log(
+        "Random Image Base64 (first 50 chars):",
+        randomImageDataUrl.slice(0, 50)
+      );
 
-  //     const data = await saveResponse.json();
-  //     console.log("Image saved successfully client:", data);
-  //   } catch (error) {
-  //     console.error("Error saving image client side:", error);
-  //   }
-  // };
+      const saveResponse = await fetch("/save-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userImage: userImageData,
+          randomImage: randomImageDataUrl,
+          metadata: randomItem,
+        }),
+      });
 
-  // const convertToBase64 = (blob) => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => resolve(reader.result);
-  //     reader.onerror = reject;
-  //     reader.readAsDataURL(blob);
-  //   });
-  // };
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
+
+      const data = await saveResponse.json();
+      console.log("Image saved successfully client:", data);
+    } catch (error) {
+      console.error("Error saving image client side:", error);
+    }
+  };
 
   // This is the client side version of the function above, converts the two images client side and compares them using resemblejs
   // const handleCompareImages = async () => {
@@ -162,7 +171,7 @@ function Canvas({ randomItem }) {
         </Popup>
 
         {/* <button onClick={handleSaveImage}>Save Image</button> */}
-        <button onClick={handleCompareImages}>Compare Images</button>
+        <button onClick={handleSaveImage}>Compare/Save Images</button>
       </div>
       <Stage
         width={canvasSize.width}
