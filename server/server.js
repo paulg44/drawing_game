@@ -35,12 +35,12 @@ app.post("/save-image", async (req, res) => {
 
     const userImagePath = path.join(
       __dirname,
-      "compare_images",
+      "../client/src/compare_images",
       userImageFileName
     );
     const randomImagePath = path.join(
       __dirname,
-      "compare_images",
+      "../client/src/compare_images",
       randomImageFileName
     );
 

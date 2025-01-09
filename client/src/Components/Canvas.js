@@ -114,35 +114,6 @@ function Canvas({ randomItem }) {
     }
   };
 
-  // This is the client side version of the function above, converts the two images client side and compares them using resemblejs
-  // const handleCompareImages = async () => {
-  //   const userImageData = stageRef.current.toDataURL();
-  //   const randomImageUrl = randomItem.image;
-
-  //   const userImage = new Image();
-  //   const randomImage = new Image();
-
-  //   const userImageBlob = await dataURLToBlob(userImageData);
-  //   const userImageBlobURL = URL.createObjectURL(userImageBlob);
-
-  //   userImage.src = userImageBlobURL;
-  //   randomImage.src = randomImageUrl;
-
-  //   userImage.onload = () => {
-  //     randomImage.onload = () => {
-  //       resemble(userImage)
-  //         .compareTo(randomImage)
-  //         .ignoreColors()
-  //         .onComplete((data) => {
-  //           console.log(data);
-  //         });
-  //     };
-  //   };
-  // };
-  // const dataURLToBlob = async (dataURL) => {
-  //   return fetch(dataURL).then((res) => res.blob());
-  // };
-
   const handleClearPage = () => {
     setLines([]);
   };
