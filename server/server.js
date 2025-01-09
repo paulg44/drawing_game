@@ -4,6 +4,8 @@ import fs from "fs-extra";
 import path from "path";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { PNG } from "pngjs";
+import Pixelmatch from "pixelmatch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,12 +37,12 @@ app.post("/save-image", async (req, res) => {
 
     const userImagePath = path.join(
       __dirname,
-      "../client/src/compare_images",
+      "/compare_images",
       userImageFileName
     );
     const randomImagePath = path.join(
       __dirname,
-      "../client/src/compare_images",
+      "/compare_images",
       randomImageFileName
     );
 
@@ -58,6 +60,42 @@ app.post("/save-image", async (req, res) => {
   } catch (error) {
     console.error("Error saving images in server:", error);
     res.status(500).send({ error: "Failed to save images in server" });
+  }
+});
+
+app.post("/compare-images", async (req, res) => {
+  const { userImagePath, randomImagePath } = req.body;
+
+  if (!userImagePath || !randomImagePath) {
+    return res.status(400).send({ error: "Paths for both images needed" });
+  }
+
+  try {
+    const userImage = PNG.sync.read(fs.readFileSync(userImagePath));
+    const randomImage = PNG.sync.read(fs.readFileSync(randomImagePath));
+
+    const { width, height } = userImage;
+
+    if (width !== randomImage.width || height !== randomImage.height) {
+      return res
+        .status(400)
+        .send({ error: "Images must have the same dimensions fro comparison" });
+    }
+
+    const diff = new PNG({ width, height });
+    const numDiffPixels = Pixelmatch(
+      userImage.data,
+      randomImage.data,
+      diff.data,
+      width,
+      height,
+      { threshold: 0.1 }
+    );
+
+    res.send({ numDiffPixels });
+  } catch (error) {
+    console.error("Error comparing images in server:", error);
+    res.status(500).send({ error: "Failed to compare images in server" });
   }
 });
 

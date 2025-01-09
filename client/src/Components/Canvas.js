@@ -1,6 +1,5 @@
 import "../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
-// import * as resemble from "resemblejs";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { Stage, Layer, Line } from "react-konva";
