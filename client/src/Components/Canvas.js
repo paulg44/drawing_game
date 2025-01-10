@@ -60,8 +60,7 @@ function Canvas({ randomItem }) {
     isDrawing.current = false;
   };
 
-  // I am trying two ways of saving and comparing images. This function uses a server, currently saves both the user image and random image to server. However I don't believe it's saving the random image in the correct format as it isn't visible like the users image is.
-  const handleSaveImage = async () => {
+  const calculateScore = async () => {
     const convertToBase64 = (blob) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -72,46 +71,83 @@ function Canvas({ randomItem }) {
     };
 
     const userImageData = stageRef.current.toDataURL();
-
     const randomImageUrl = randomItem.image;
 
+    const response = await fetch(randomImageUrl);
+    const blob = await response.blob();
+
+    const randomImageDataUrl = await convertToBase64(blob);
     try {
-      const response = await fetch(randomImageUrl);
-      const blob = await response.blob();
-
-      const randomImageDataUrl = await convertToBase64(blob);
-
-      console.log(
-        "User Image Base64 (first 50 chars):",
-        userImageData.slice(0, 50)
-      );
-      console.log(
-        "Random Image Base64 (first 50 chars):",
-        randomImageDataUrl.slice(0, 50)
-      );
-
-      const saveResponse = await fetch("/save-image", {
+      const compareResponse = fetch("http://localhost:3020/compare-images", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userImage: userImageData,
-          randomImage: randomImageDataUrl,
-          metadata: randomItem,
+          userImagePath: userImageData,
+          randomImagePath: randomImageDataUrl,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-
-      const data = await saveResponse.json();
-      console.log("Image saved successfully client:", data);
+      const result = await compareResponse.json();
+      console.log("Comparison data:", result);
     } catch (error) {
-      console.error("Error saving image client side:", error);
+      console.error("Error fetching saved images from server", error);
     }
   };
+
+  // I am trying two ways of saving and comparing images. This function uses a server, currently saves both the user image and random image to server. However I don't believe it's saving the random image in the correct format as it isn't visible like the users image is.
+  // const handleSaveImage = async () => {
+  //   const convertToBase64 = (blob) => {
+  //     return new Promise((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => resolve(reader.result);
+  //       reader.onerror = reject;
+  //       reader.readAsDataURL(blob);
+  //     });
+  //   };
+
+  //   const userImageData = stageRef.current.toDataURL();
+
+  //   const randomImageUrl = randomItem.image;
+
+  //   try {
+  //     const response = await fetch(randomImageUrl);
+  //     const blob = await response.blob();
+
+  //     const randomImageDataUrl = await convertToBase64(blob);
+
+  //     console.log(
+  //       "User Image Base64 (first 50 chars):",
+  //       userImageData.slice(0, 50)
+  //     );
+  //     console.log(
+  //       "Random Image Base64 (first 50 chars):",
+  //       randomImageDataUrl.slice(0, 50)
+  //     );
+
+  //     const saveResponse = await fetch("/save-image", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         userImage: userImageData,
+  //         randomImage: randomImageDataUrl,
+  //         metadata: randomItem,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Server error: ${response.statusText}`);
+  //     }
+
+  //     const data = await saveResponse.json();
+  //     console.log("Image saved successfully client:", data);
+  //   } catch (error) {
+  //     console.error("Error saving image client side:", error);
+  //   }
+  // };
 
   const handleClearPage = () => {
     setLines([]);
@@ -141,7 +177,7 @@ function Canvas({ randomItem }) {
         </Popup>
 
         {/* <button onClick={handleSaveImage}>Save Image</button> */}
-        <button onClick={handleSaveImage}>Compare/Save Images</button>
+        <button onClick={calculateScore}>Compare/Save Images</button>
       </div>
       <Stage
         width={canvasSize.width}
