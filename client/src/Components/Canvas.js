@@ -77,17 +77,29 @@ function Canvas({ randomItem }) {
     const blob = await response.blob();
 
     const randomImageDataUrl = await convertToBase64(blob);
+
+    console.log(
+      "User Image Base64 (first 50 chars):",
+      userImageData.slice(0, 50)
+    );
+    console.log(
+      "Random Image Base64 (first 50 chars):",
+      randomImageDataUrl.slice(0, 50)
+    );
     try {
-      const compareResponse = fetch("http://localhost:3020/compare-images", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userImagePath: userImageData,
-          randomImagePath: randomImageDataUrl,
-        }),
-      });
+      const compareResponse = await fetch(
+        "http://localhost:3020/compare-images",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userImagePath: userImageData,
+            randomImagePath: randomImageDataUrl,
+          }),
+        }
+      );
 
       const result = await compareResponse.json();
       console.log("Comparison data:", result);

@@ -4,22 +4,22 @@
       {
         "id": 1,
         "name": "circle",
-        "image": "/images/shapes/circle.jpg"
+        "image": "/images/shapes/squarepng.png"
       },
       {
         "id": 2,
         "name": "square",
-        "image": "/images/shapes/square.jpg"
+        "image": "/images/shapes/squarepng.png"
       },
       {
         "id": 3,
         "name": "triangle",
-        "image": "/images/shapes/triangle.jpg"
+        "image": "/images/shapes/squarepng.png"
       },
       {
         "id": 4,
         "name": "star",
-        "image": "/images/shapes/star.jpg"
+        "image": "/images/shapes/squarepng.png"
       }
     ],
     "letters": [

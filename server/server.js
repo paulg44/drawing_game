@@ -71,24 +71,36 @@ app.post("/compare-images", async (req, res) => {
   }
 
   try {
-    const userImage = PNG.sync.read(fs.readFileSync(userImagePath));
-    const randomImage = PNG.sync.read(fs.readFileSync(randomImagePath));
+    const userImageBuffer = Buffer.from(
+      userImagePath.replace(/^data:image\/png;base64,/, ""),
+      "base64"
+    );
+    const randomImageBuffer = Buffer.from(
+      randomImagePath.replace(/^data:image\/png;base64,/, ""),
+      "base64"
+    );
 
-    const { width, height } = userImage;
+    const userImage = PNG.sync.read(userImageBuffer);
+    const randomImage = PNG.sync.read(randomImageBuffer);
 
-    if (width !== randomImage.width || height !== randomImage.height) {
-      return res
-        .status(400)
-        .send({ error: "Images must have the same dimensions fro comparison" });
+    const { width: userWidth, height: userHeight } = userImage;
+    const { width: randomWidth, height: randomHeight } = randomImage;
+
+    if (userWidth !== randomWidth || userHeight !== randomHeight) {
+      return res.status(400).send({
+        error: "Images must have the same dimensions for comparison",
+        userDimensions: { userWidth, userHeight },
+        randomDimensions: { randomWidth, randomHeight },
+      });
     }
 
-    const diff = new PNG({ width, height });
+    const diff = new PNG({ width: userWidth, height: userHeight });
     const numDiffPixels = Pixelmatch(
       userImage.data,
       randomImage.data,
       diff.data,
-      width,
-      height,
+      userWidth,
+      userHeight,
       { threshold: 0.1 }
     );
 
