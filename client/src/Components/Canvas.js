@@ -19,7 +19,7 @@ function Canvas({ randomItem }) {
   useEffect(() => {
     if (canvasContainerRef.current) {
       setCanvasSize({
-        width: canvasContainerRef.current.offsetWidth,
+        width: 518,
         height: canvasContainerRef.current.offsetHeight,
       });
     }
@@ -27,7 +27,7 @@ function Canvas({ randomItem }) {
     const handleResize = () => {
       if (canvasContainerRef.current) {
         setCanvasSize({
-          width: canvasContainerRef.current.offsetWidth,
+          width: 518,
           height: canvasContainerRef.current.offsetHeight,
         });
       }
@@ -108,58 +108,53 @@ function Canvas({ randomItem }) {
     }
   };
 
-  // I am trying two ways of saving and comparing images. This function uses a server, currently saves both the user image and random image to server. However I don't believe it's saving the random image in the correct format as it isn't visible like the users image is.
-  // const handleSaveImage = async () => {
-  //   const convertToBase64 = (blob) => {
-  //     return new Promise((resolve, reject) => {
-  //       const reader = new FileReader();
-  //       reader.onloadend = () => resolve(reader.result);
-  //       reader.onerror = reject;
-  //       reader.readAsDataURL(blob);
-  //     });
-  //   };
+  const handleSaveImage = async () => {
+    const convertToBase64 = (blob) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
 
-  //   const userImageData = stageRef.current.toDataURL();
+    const userImageData = stageRef.current.toDataURL();
 
-  //   const randomImageUrl = randomItem.image;
+    const randomImageUrl = randomItem.image;
 
-  //   try {
-  //     const response = await fetch(randomImageUrl);
-  //     const blob = await response.blob();
+    const response = await fetch(randomImageUrl);
+    const blob = await response.blob();
 
-  //     const randomImageDataUrl = await convertToBase64(blob);
+    const randomImageDataUrl = await convertToBase64(blob);
 
-  //     console.log(
-  //       "User Image Base64 (first 50 chars):",
-  //       userImageData.slice(0, 50)
-  //     );
-  //     console.log(
-  //       "Random Image Base64 (first 50 chars):",
-  //       randomImageDataUrl.slice(0, 50)
-  //     );
+    try {
+      console.log(
+        "User Image Base64 (first 50 chars):",
+        userImageData.slice(0, 50)
+      );
 
-  //     const saveResponse = await fetch("/save-image", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userImage: userImageData,
-  //         randomImage: randomImageDataUrl,
-  //         metadata: randomItem,
-  //       }),
-  //     });
+      const saveResponse = await fetch("/save-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userImage: userImageData,
+          randomImage: randomImageDataUrl,
+          metadata: randomItem,
+        }),
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error(`Server error: ${response.statusText}`);
-  //     }
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
 
-  //     const data = await saveResponse.json();
-  //     console.log("Image saved successfully client:", data);
-  //   } catch (error) {
-  //     console.error("Error saving image client side:", error);
-  //   }
-  // };
+      const data = await saveResponse.json();
+      console.log("Image saved successfully client:", data);
+    } catch (error) {
+      console.error("Error saving image client side:", error);
+    }
+  };
 
   const handleClearPage = () => {
     setLines([]);
@@ -188,7 +183,7 @@ function Canvas({ randomItem }) {
           </div>
         </Popup>
 
-        {/* <button onClick={handleSaveImage}>Save Image</button> */}
+        <button onClick={handleSaveImage}>Save Image</button>
         <button onClick={calculateScore}>Compare/Save Images</button>
       </div>
       <Stage

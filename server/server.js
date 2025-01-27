@@ -87,6 +87,7 @@ app.post("/compare-images", async (req, res) => {
     const { width: randomWidth, height: randomHeight } = randomImage;
 
     if (userWidth !== randomWidth || userHeight !== randomHeight) {
+      // Need to trim canvas image to match png random
       return res.status(400).send({
         error: "Images must have the same dimensions for comparison",
         userDimensions: { userWidth, userHeight },
