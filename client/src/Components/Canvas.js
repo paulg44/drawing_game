@@ -9,6 +9,7 @@ function Canvas({ randomItem }) {
   const [tool, setTool] = useState("pen");
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState("#000");
+  const [score, setScore] = useState(null);
   const isDrawing = useRef(false);
 
   const stageRef = useRef(false);
@@ -61,15 +62,6 @@ function Canvas({ randomItem }) {
   };
 
   const calculateScore = async () => {
-    // const convertToBase64 = (blob) => {
-    //   return new Promise((resolve, reject) => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => resolve(reader.result);
-    //     reader.onerror = reject;
-    //     reader.readAsDataURL(blob);
-    //   });
-    // };
-
     const userImageData = stageRef.current.toDataURL();
 
     console.log(
@@ -78,74 +70,72 @@ function Canvas({ randomItem }) {
     );
 
     try {
-      const compareResponse = await fetch(
-        "http://localhost:3020/compare-images",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userImagePath: userImageData,
-            randomImageName: randomItem.name,
-          }),
-        }
-      );
-
-      const result = await compareResponse.json();
-      console.log("Comparison data:", result);
-    } catch (error) {
-      console.error("Error fetching saved images from server", error);
-    }
-  };
-
-  const handleSaveImage = async () => {
-    const convertToBase64 = (blob) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    };
-
-    const userImageData = stageRef.current.toDataURL();
-
-    const randomImageUrl = randomItem.image;
-
-    const response = await fetch(randomImageUrl);
-    const blob = await response.blob();
-
-    const randomImageDataUrl = await convertToBase64(blob);
-
-    try {
-      console.log(
-        "User Image Base64 (first 50 chars):",
-        userImageData.slice(0, 50)
-      );
-
-      const saveResponse = await fetch("/save-image", {
+      const response = await fetch("http://localhost:3020/compare-images", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userImage: userImageData,
-          randomImage: randomImageDataUrl,
-          metadata: randomItem,
+          userImagePath: userImageData,
+          randomImageName: randomItem.name,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-
-      const data = await saveResponse.json();
-      console.log("Image saved successfully client:", data);
+      const data = await response.json();
+      console.log("Comparison data:", data);
+      setScore(data.score);
     } catch (error) {
-      console.error("Error saving image client side:", error);
+      console.error("Error fetching saved images from server", error);
     }
   };
+
+  // const handleSaveImage = async () => {
+  //   const convertToBase64 = (blob) => {
+  //     return new Promise((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => resolve(reader.result);
+  //       reader.onerror = reject;
+  //       reader.readAsDataURL(blob);
+  //     });
+  //   };
+
+  //   const userImageData = stageRef.current.toDataURL();
+
+  //   const randomImageUrl = randomItem.image;
+
+  //   const response = await fetch(randomImageUrl);
+  //   const blob = await response.blob();
+
+  //   const randomImageDataUrl = await convertToBase64(blob);
+
+  //   try {
+  //     console.log(
+  //       "User Image Base64 (first 50 chars):",
+  //       userImageData.slice(0, 50)
+  //     );
+
+  //     const saveResponse = await fetch("/save-image", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         userImage: userImageData,
+  //         randomImage: randomImageDataUrl,
+  //         metadata: randomItem,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Server error: ${response.statusText}`);
+  //     }
+
+  //     const data = await saveResponse.json();
+  //     console.log("Image saved successfully client:", data);
+  //   } catch (error) {
+  //     console.error("Error saving image client side:", error);
+  //   }
+  // };
 
   const handleClearPage = () => {
     setLines([]);
@@ -174,8 +164,9 @@ function Canvas({ randomItem }) {
           </div>
         </Popup>
 
-        <button onClick={handleSaveImage}>Save Image</button>
+        {/* <button onClick={handleSaveImage}>Save Image</button> */}
         <button onClick={calculateScore}>Compare/Save Images</button>
+        <p>{score === null ? "Awaiting score..." : score}</p>
       </div>
       <Stage
         width={canvasSize.width}
