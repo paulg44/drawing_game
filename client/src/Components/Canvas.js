@@ -61,31 +61,22 @@ function Canvas({ randomItem }) {
   };
 
   const calculateScore = async () => {
-    const convertToBase64 = (blob) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    };
+    // const convertToBase64 = (blob) => {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => resolve(reader.result);
+    //     reader.onerror = reject;
+    //     reader.readAsDataURL(blob);
+    //   });
+    // };
 
     const userImageData = stageRef.current.toDataURL();
-    const randomImageUrl = randomItem.image;
-
-    const response = await fetch(randomImageUrl);
-    const blob = await response.blob();
-
-    const randomImageDataUrl = await convertToBase64(blob);
 
     console.log(
       "User Image Base64 (first 50 chars):",
       userImageData.slice(0, 50)
     );
-    console.log(
-      "Random Image Base64 (first 50 chars):",
-      randomImageDataUrl.slice(0, 50)
-    );
+
     try {
       const compareResponse = await fetch(
         "http://localhost:3020/compare-images",
@@ -96,7 +87,7 @@ function Canvas({ randomItem }) {
           },
           body: JSON.stringify({
             userImagePath: userImageData,
-            randomImagePath: randomImageDataUrl,
+            randomImageName: randomItem.name,
           }),
         }
       );

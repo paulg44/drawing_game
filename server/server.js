@@ -4,8 +4,9 @@ import fs from "fs-extra";
 import path from "path";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
-import { PNG } from "pngjs";
-import Pixelmatch from "pixelmatch";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,48 +65,39 @@ app.post("/save-image", async (req, res) => {
 });
 
 app.post("/compare-images", async (req, res) => {
-  const { userImagePath, randomImagePath } = req.body;
+  const { userImagePath, randomImageName } = req.body;
 
-  if (!userImagePath || !randomImagePath) {
+  if (!userImagePath || !randomImageName) {
     return res.status(400).send({ error: "Paths for both images needed" });
   }
 
   try {
-    const userImageBuffer = Buffer.from(
-      userImagePath.replace(/^data:image\/png;base64,/, ""),
-      "base64"
-    );
-    const randomImageBuffer = Buffer.from(
-      randomImagePath.replace(/^data:image\/png;base64,/, ""),
-      "base64"
-    );
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    const userImage = PNG.sync.read(userImageBuffer);
-    const randomImage = PNG.sync.read(randomImageBuffer);
+    const prompt = `A child drew this. Can you give me a score out of 100 for the likeness of a ${randomImageName}. Please bear in mind that a child of 8 years old drew this. I want you to return only a number between 1 and 100`;
 
-    const { width: userWidth, height: userHeight } = userImage;
-    const { width: randomWidth, height: randomHeight } = randomImage;
+    const imageParts = {
+      inlineData: {
+        data: userImagePath,
+        mimeType: "image/jpeg",
+      },
+    };
 
-    if (userWidth !== randomWidth || userHeight !== randomHeight) {
-      // Need to trim canvas image to match png random
-      return res.status(400).send({
-        error: "Images must have the same dimensions for comparison",
-        userDimensions: { userWidth, userHeight },
-        randomDimensions: { randomWidth, randomHeight },
-      });
+    const generateContent = await model.generateContent([prompt, imageParts]);
+
+    const responseText = generateContent.response.text();
+
+    const scoreMatch = responseText.match(/\d+/);
+    const score = scoreMatch ? parseInt(scoreMatch[0], 10) : null;
+
+    if (score === null || score < 1 || score > 100) {
+      console.error("Gemini returned invalid score:", responseText);
+      return res
+        .status(500)
+        .json({ error: "Invalid score returned from Gemini" });
     }
 
-    const diff = new PNG({ width: userWidth, height: userHeight });
-    const numDiffPixels = Pixelmatch(
-      userImage.data,
-      randomImage.data,
-      diff.data,
-      userWidth,
-      userHeight,
-      { threshold: 0.1 }
-    );
-
-    res.send({ numDiffPixels });
+    res.status(200).json({ score: score });
   } catch (error) {
     console.error("Error comparing images in server:", error);
     res.status(500).send({ error: "Failed to compare images in server" });
