@@ -80,8 +80,8 @@ function Canvas({ randomItem }) {
       });
 
       const data = await response.json();
-      console.log("Comparison data:", data);
-      setScore(data.score);
+      console.log("Comparison data:", data.response);
+      setScore(data.response);
     } catch (error) {
       console.error("Error fetching saved images from server", error);
     }

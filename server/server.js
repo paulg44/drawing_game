@@ -74,10 +74,72 @@ app.post("/compare-images", async (req, res) => {
     return res.status(400).send({ error: "Paths for both images needed" });
   }
 
+  const shapeDescriptions = {
+    star: `
+      A *perfect* star drawing (100 points) would have:
+      * Five distinct points.
+      * The points should be roughly equally spaced around a central point.
+      * The lines connecting the points should be relatively straight (for a child's drawing) and form a closed shape.
+      * The overall shape should be clearly recognizable as a five-pointed star and not resemble any other shape (e.g., a circle, a square, a scribble).
+    `,
+    circle: `
+      A *perfect* circle drawing (100 points) would have:
+      * A continuous, closed curve with no sharp angles.
+      * All points on the curve should be equidistant from the center.
+      * The shape should be clearly recognizable as a circle and not resemble any other shape (e.g., an oval, a square, a scribble).
+    `,
+    square: `
+      A *perfect* square drawing (100 points) would have:
+      * Four distinct corners.
+      * Four straight sides of equal length.
+      * The corners should be right angles (90 degrees).
+      * The shape should be clearly recognizable as a square and not resemble any other shape (e.g., a rectangle, a diamond, a scribble).
+    `,
+    triangle: `
+      A *perfect* triangle drawing (100 points) would have:
+      * Three distinct corners.
+      * Three straight sides.
+      * The shape should be clearly recognizable as a triangle and not resemble any other shape (e.g., a line, a square, a scribble).`,
+  };
+
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    const prompt = `A child drew this. Can you give me a score out of 100 for the likeness of a ${randomImageName}. Please bear in mind that a child of 8 years old drew this. I want you to return only a number between 1 and 100`;
+    const shapeDescription = shapeDescriptions[randomImageName];
+
+    if (!shapeDescription) {
+      return res
+        .status(400)
+        .json({ error: `Description not found for shape: ${randomImageName}` });
+    }
+
+    const prompt = `
+    A child (age 8) drew this. I want you to score the drawing out of 100 for how well it represents a ${randomImageName}. I am looking for a drawing that accurately captures the *shape* of a ${randomImageName}.
+
+    ${shapeDescription}  
+    I want you to score the drawing out of 100 for how well it represents a ${randomImageName}. I am looking for a drawing that accurately captures the *shape* of a ${randomImageName}.I want you to be very accurate and very critical when you do the analysis on this image of a ${randomImageName}
+
+A *perfect* ${randomImageName} drawing (100 points) would have:
+* The characteristic features of a ${randomImageName} (describe these for each shape you'll use – see examples below).
+* The elements should be roughly equally spaced or arranged as expected for a ${randomImageName}.
+* The lines connecting the elements should be relatively straight and form a closed shape (if applicable).
+* The overall shape should be clearly recognizable as a ${randomImageName} and not resemble any other shape.
+
+A *good* ${randomImageName} drawing (70-90 points) would have:
+* The characteristic features of a ${randomImageName}, but they might not be perfectly executed.
+* The shape is still recognizable as a ${randomImageName}.
+
+A *mediocre* ${randomImageName} drawing (40-60 points) might:
+* Have some of the characteristic features, but they might be very uneven or poorly connected.
+* The shape might be somewhat ambiguous but still hint at a ${randomImageName}.
+
+A *bad* ${randomImageName} drawing (1-39 points) would:
+* Not clearly have the characteristic features of a ${randomImageName}.
+* The shape is not recognizable as a ${randomImageName}. It might be a scribble, a line, or resemble a completely different object.
+
+If the drawing is just a scribble, a single line, or if it resembles something other than a ${randomImageName}, give it a very low score (below 20).
+
+Return a number between 1 and 100 and an explanation.`;
 
     const imageParts = {
       inlineData: {
@@ -90,17 +152,18 @@ app.post("/compare-images", async (req, res) => {
 
     const responseText = generateContent.response.text();
 
-    const scoreMatch = responseText.match(/\d+/);
-    const score = scoreMatch ? parseInt(scoreMatch[0], 10) : null;
+    // const scoreMatch = responseText.match(/\d+/);
+    // const score = scoreMatch ? parseInt(scoreMatch[0], 10) : null;
 
-    if (score === null || score < 1 || score > 100) {
-      console.error("Gemini returned invalid score:", responseText);
-      return res
-        .status(500)
-        .json({ error: "Invalid score returned from Gemini" });
-    }
+    // if (score === null || score < 1 || score > 100) {
+    //   console.error("Gemini returned invalid score:", responseText);
+    //   return res
+    //     .status(500)
+    //     .json({ error: "Invalid score returned from Gemini" });
+    // }
 
-    res.status(200).json({ score: score });
+    // Sending response text while I debug
+    res.status(200).json({ response: responseText });
   } catch (error) {
     console.error("Error comparing images in server:", error);
     res.status(500).send({ error: "Failed to compare images in server" });
