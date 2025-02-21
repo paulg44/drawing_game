@@ -63,11 +63,9 @@ function Canvas({ randomItem }) {
 
   const calculateScore = async () => {
     const userImageData = stageRef.current.toDataURL();
+    const base64String = userImageData.split(",")[1];
 
-    console.log(
-      "User Image Base64 (first 50 chars):",
-      userImageData.slice(0, 50)
-    );
+    console.log(base64String.slice(0, 50));
 
     try {
       const response = await fetch("http://localhost:3020/compare-images", {
@@ -76,7 +74,7 @@ function Canvas({ randomItem }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userImagePath: userImageData,
+          userImage: base64String,
           randomImageName: randomItem.name,
         }),
       });

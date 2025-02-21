@@ -68,9 +68,9 @@ app.post("/save-image", async (req, res) => {
 });
 
 app.post("/compare-images", async (req, res) => {
-  const { userImagePath, randomImageName } = req.body;
+  const { userImage, randomImageName } = req.body;
 
-  if (!userImagePath || !randomImageName) {
+  if (!userImage || !randomImageName) {
     return res.status(400).send({ error: "Paths for both images needed" });
   }
 
@@ -81,8 +81,8 @@ app.post("/compare-images", async (req, res) => {
 
     const imageParts = {
       inlineData: {
-        data: userImagePath,
-        mimeType: "image/jpeg",
+        data: userImage,
+        mimeType: "image/png",
       },
     };
 
