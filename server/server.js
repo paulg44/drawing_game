@@ -92,19 +92,19 @@ app.post("/compare-images", async (req, res) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    const shapeDescription = shapeDescriptions[randomImageName];
+    // const shapeDescription = shapeDescriptions[randomImageName];
 
-    if (!shapeDescription) {
-      return res
-        .status(400)
-        .json({ error: `Description not found for shape: ${randomImageName}` });
-    }
+    // if (!shapeDescription) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: `Description not found for shape: ${randomImageName}` });
+    // }
 
     const prompt = `
 A child (age 8) drew this. I want you to score the drawing out of 100 for how well it represents a ${randomImageName}. I am looking for a drawing that accurately captures the _shape_ of a ${randomImageName}.
 
-    ${shapeDescription}
-    I want you to score the drawing out of 100 for how well it represents a ${randomImageName}. I am looking for a drawing that accurately captures the *shape* of a ${randomImageName}.I want you to be very accurate and very critical when you do the analysis on this image of a ${randomImageName}
+    
+    I want you to score the drawing out of 100 for how well it represents a ${randomImageName}. I am looking for a drawing that accurately captures the *shape* of a ${randomImageName}.I want you to be accurate when you do the analysis on this image of a ${randomImageName}
 
 A _perfect_ ${randomImageName} drawing (100 points) would have:
 

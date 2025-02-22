@@ -8,7 +8,7 @@ function Canvas({ randomItem }) {
   // Canvas Side
   const [tool, setTool] = useState("pen");
   const [lines, setLines] = useState([]);
-  const [color, setColor] = useState("#000");
+  const [color, setColor] = useState("#fff");
   const [score, setScore] = useState(null);
   const isDrawing = useRef(false);
 
@@ -169,6 +169,7 @@ function Canvas({ randomItem }) {
         onTouchMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onTouchEnd={handleMouseUp}
+        style={{ background: "black" }}
       >
         <Layer>
           {lines.map((line, i) => (

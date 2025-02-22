@@ -4,7 +4,7 @@
       {
         "id": 1,
         "name": "circle",
-        "image": "/images/shapes/squarepng.png"
+        "image": "/images/shapes/circle.jpg"
       },
       {
         "id": 2,
@@ -14,36 +14,36 @@
       {
         "id": 3,
         "name": "triangle",
-        "image": "/images/shapes/squarepng.png"
+        "image": "/images/shapes/triangle.jpg"
       },
       {
         "id": 4,
         "name": "star",
-        "image": "/images/shapes/squarepng.png"
+        "image": "/images/shapes/star.jpg"
       }
     ],
     "letters": [
       {
         "id": 1,
-        "name": "",
+        "name": "A",
         "image": "/images/letters/letter_A.jpg",
         "imageAlt": "A"
       },
       {
         "id": 2,
-        "name": "",
+        "name": "B",
         "image": "/images/letters/letter_B.jpg",
         "imageAlt": "B"
       },
       {
         "id": 3,
-        "name": "",
+        "name": "C",
         "image": "/images/letters/letter_C.jpg",
         "imageAlt": "C"
       },
       {
         "id": 4,
-        "name": "",
+        "name": "D",
         "image": "/images/letters/letter_D.jpg",
         "imageAlt": "D"
       }
@@ -52,44 +52,44 @@
       {
         "id": 1,
         "name": 1,
-        "image": "path/to/1.png"
+        "image": "/images/numbers/number_1.png"
       },
       {
         "id": 2,
         "name": 2,
-        "image": "path/to/2.png"
+        "image": "/images/numbers/number_2.png"
       },
       {
         "id": 3,
         "name": 3,
-        "image": "path/to/3.png"
+        "image": "/images/numbers/number_3.png"
       },
       {
         "id": 4,
         "name": 4,
-        "image": "path/to/4.png"
+        "image": "/images/numbers/number_4.png"
       }
     ],
     "animals": [
       {
         "id": 1,
         "name": "cat",
-        "image": "path/to/cat.png"
+        "image": "/images/animals/cat.png"
       },
       {
         "id": 2,
         "name": "dog",
-        "image": "path/to/dog.png"
+        "image": "/images/animals/dog.png"
       },
       {
         "id": 3,
         "name": "elephant",
-        "image": "path/to/elephant.png"
+        "image": "/images/animals/elephant.PNG"
       },
       {
         "id": 4,
-        "name": "lion",
-        "image": "path/to/lion.png"
+        "name": "octopus",
+        "image": "/images/animals/octopus.png"
       }
     ]
   }
