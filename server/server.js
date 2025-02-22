@@ -31,35 +31,22 @@ app.post("/save-image", async (req, res) => {
 
   try {
     const userBase64Data = userImage.replace(/^data:image\/png;base64,/, "");
-    // const randomBase64Data = randomImage.replace(
-    //   /^data:image\/(jpeg|png);base64,/,
-    //   ""
-    // );
 
     const userImageFileName = `${metadata.name}-user.png`;
-    // const randomImageFileName = `${metadata.name}-random.png`;
 
     const userImagePath = path.join(
       __dirname,
       "/compare_images",
       userImageFileName
     );
-    // const randomImagePath = path.join(
-    //   __dirname,
-    //   "/compare_images",
-    //   randomImageFileName
-    // );
 
     fs.mkdirSync(path.dirname(userImagePath), { recursive: true });
 
     fs.writeFile(userImagePath, Buffer.from(userBase64Data, "base64"));
-    // const randomImageBuffer = Buffer.from(randomBase64Data, "base64");
-    // await sharp(randomImageBuffer).toFormat("png").toFile(randomImagePath);
 
     res.send({
       message: "Image saved successfully server",
       userImageFileName,
-      // randomImageFileName,
     });
   } catch (error) {
     console.error("Error saving images in server:", error);
@@ -143,7 +130,7 @@ A _bad_ ${randomImageName} drawing (1-39 points) would:
 
 If the drawing is just a scribble, a single line, or if it resembles something other than a ${randomImageName}, give it a very low score (below 20).
 
-Return a number between 1 and 100 and an explanation.`;
+Return a number between 1 and 100 and a brief explanation.`;
 
     const imageParts = {
       inlineData: {

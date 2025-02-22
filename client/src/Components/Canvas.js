@@ -100,13 +100,6 @@ function Canvas({ randomItem }) {
     const userImageData = stageRef.current.toDataURL();
     const base64String = userImageData.split(",")[1];
 
-    // const randomImageUrl = randomItem.image;
-
-    // const response = await fetch(randomImageUrl);
-    // const blob = await response.blob();
-
-    // const randomImageDataUrl = await convertToBase64(blob);
-
     try {
       console.log(
         "User Image Base64 (first 50 chars):",
@@ -120,7 +113,6 @@ function Canvas({ randomItem }) {
         },
         body: JSON.stringify({
           userImage: base64String,
-          // randomImage: randomImageDataUrl,
           metadata: randomItem,
         }),
       });
