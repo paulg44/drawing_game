@@ -3,7 +3,7 @@ import Display from "../Components/Display";
 import { MemoryRouter } from "react-router-dom";
 import { CategoryProvider } from "../context/CategoryContext";
 
-test("renders with a header and image", async () => {
+test("renders with two buttons and random item name", async () => {
   const category = {
     name: "shapes",
     items: [
@@ -13,18 +13,20 @@ test("renders with a header and image", async () => {
       { id: 4, name: "star", image: "/test/star.jpg" },
     ],
   };
+
+  const randomItem = category.items[2];
+
   render(
     <MemoryRouter>
       <CategoryProvider initialCategory={category}>
-        <Display />
+        <Display randomItem={randomItem} />
       </CategoryProvider>
     </MemoryRouter>
   );
 
-  const heading = await screen.findByRole("heading");
-  expect(heading).toBeInTheDocument();
+  const btns = screen.getAllByRole("button");
+  expect(btns).toHaveLength(2);
 
-  const image = screen.getByRole("img");
-  expect(image).toBeInTheDocument();
-  expect(image).toHaveAttribute("src");
+  const itemName = screen.getByRole("heading", { name: /triangle/i });
+  expect(itemName).toBeInTheDocument();
 });
