@@ -3,7 +3,6 @@ import cors from "cors";
 import fs from "fs-extra";
 import dotenv from "dotenv";
 import path from "path";
-import sharp from "sharp";
 import { fileURLToPath } from "url";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 

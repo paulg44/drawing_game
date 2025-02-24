@@ -169,6 +169,7 @@ function Canvas({ randomItem }) {
         onTouchMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onTouchEnd={handleMouseUp}
+        onMouseLeave={handleMouseUp}
         style={{ background: "black" }}
       >
         <Layer>
