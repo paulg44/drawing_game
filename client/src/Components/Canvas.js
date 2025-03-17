@@ -41,13 +41,23 @@ function Canvas({ randomItem }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleDisableScroll = (e) => {
+    e.preventDefault();
+  };
+
   const handleMouseDown = (e) => {
+    e.evt.preventDefault();
     isDrawing.current = true;
+    document.addEventListener("touchmove", handleDisableScroll, {
+      passive: false,
+    });
+
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y], color }]);
   };
 
   const handleMouseMove = (e) => {
+    // e.preventDefault();
     if (!isDrawing.current) {
       return;
     }
@@ -63,6 +73,7 @@ function Canvas({ randomItem }) {
 
   const handleMouseUp = () => {
     isDrawing.current = false;
+    document.addEventListener("touchmove", handleDisableScroll);
   };
 
   const calculateScore = async () => {

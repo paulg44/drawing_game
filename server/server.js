@@ -60,6 +60,7 @@ app.post("/compare-images", async (req, res) => {
     return res.status(400).send({ error: "Paths for both images needed" });
   }
 
+  // I could add all this extra information for each shape etc in a separate json file the same way I have done with the chatbot in my portfolio
   // const shapeDescriptions = {
   //   star: `
   //     A *perfect* star drawing (100 points) would have:
