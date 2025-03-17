@@ -60,33 +60,33 @@ app.post("/compare-images", async (req, res) => {
     return res.status(400).send({ error: "Paths for both images needed" });
   }
 
-  const shapeDescriptions = {
-    star: `
-      A *perfect* star drawing (100 points) would have:
-      * Five distinct points.
-      * The points should be roughly equally spaced around a central point.
-      * The lines connecting the points should be relatively straight (for a child's drawing) and form a closed shape.
-      * The overall shape should be clearly recognizable as a five-pointed star and not resemble any other shape (e.g., a circle, a square, a scribble).
-    `,
-    circle: `
-      A *perfect* circle drawing (100 points) would have:
-      * A continuous, closed curve with no sharp angles.
-      * All points on the curve should be equidistant from the center.
-      * The shape should be clearly recognizable as a circle and not resemble any other shape (e.g., an oval, a square, a scribble).
-    `,
-    square: `
-      A *perfect* square drawing (100 points) would have:
-      * Four distinct corners.
-      * Four straight sides of equal length.
-      * The corners should be right angles (90 degrees).
-      * The shape should be clearly recognizable as a square and not resemble any other shape (e.g., a rectangle, a diamond, a scribble).
-    `,
-    triangle: `
-      A *perfect* triangle drawing (100 points) would have:
-      * Three distinct corners.
-      * Three straight sides.
-      * The shape should be clearly recognizable as a triangle and not resemble any other shape (e.g., a line, a square, a scribble).`,
-  };
+  // const shapeDescriptions = {
+  //   star: `
+  //     A *perfect* star drawing (100 points) would have:
+  //     * Five distinct points.
+  //     * The points should be roughly equally spaced around a central point.
+  //     * The lines connecting the points should be relatively straight (for a child's drawing) and form a closed shape.
+  //     * The overall shape should be clearly recognizable as a five-pointed star and not resemble any other shape (e.g., a circle, a square, a scribble).
+  //   `,
+  //   circle: `
+  //     A *perfect* circle drawing (100 points) would have:
+  //     * A continuous, closed curve with no sharp angles.
+  //     * All points on the curve should be equidistant from the center.
+  //     * The shape should be clearly recognizable as a circle and not resemble any other shape (e.g., an oval, a square, a scribble).
+  //   `,
+  //   square: `
+  //     A *perfect* square drawing (100 points) would have:
+  //     * Four distinct corners.
+  //     * Four straight sides of equal length.
+  //     * The corners should be right angles (90 degrees).
+  //     * The shape should be clearly recognizable as a square and not resemble any other shape (e.g., a rectangle, a diamond, a scribble).
+  //   `,
+  //   triangle: `
+  //     A *perfect* triangle drawing (100 points) would have:
+  //     * Three distinct corners.
+  //     * Three straight sides.
+  //     * The shape should be clearly recognizable as a triangle and not resemble any other shape (e.g., a line, a square, a scribble).`,
+  // };
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
@@ -129,7 +129,7 @@ A _bad_ ${randomImageName} drawing (1-39 points) would:
 
 If the drawing is just a scribble, a single line, or if it resembles something other than a ${randomImageName}, give it a very low score (below 20).
 
-Return a number between 1 and 100 and a brief explanation.`;
+Return either "Excellent" for scores over score 95, "Great" for scores between 80 - 94, and "Good" for score between 60-79. Anything lower than 59 return "Try Again". Only give me the words as I've stated nothing else. `;
 
     const imageParts = {
       inlineData: {
