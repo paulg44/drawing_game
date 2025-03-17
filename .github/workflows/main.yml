@@ -1,12 +1,12 @@
 name: Run Tests for Drawing Game
 
-on: 
-  push: 
+on:
+  push:
     branches: [master, main]
   pull_request:
     branches: [master, main]
 
-jobs: 
+jobs:
   test:
     runs-on: ubuntu-latest
 
@@ -16,10 +16,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-           cd client
-           npm install
+          cd client
+          npm install
 
       - name: Run Tests
-        run : | 
-           cd client
-           npm test
+        run: |
+          cd client
+          npm test

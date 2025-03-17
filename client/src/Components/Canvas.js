@@ -156,7 +156,7 @@ function Canvas({ randomItem }) {
         </Popup>
 
         {/* <button onClick={handleSaveImage}>Save Image</button> */}
-        <button onClick={calculateScore}>Compare/Save Images</button>
+        <button onClick={calculateScore}>Get Score</button>
       </div>
       <p>{score === null ? "Awaiting score..." : score}</p>
       <Stage
