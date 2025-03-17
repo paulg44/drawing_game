@@ -1,6 +1,7 @@
 import { useCategory } from "../context/CategoryContext";
 import { ImSpinner11 } from "react-icons/im";
 import { PiSpeakerLowBold } from "react-icons/pi";
+import "../assets/css/Display.css";
 
 function Display({ handleRespin, handleDictionaryAPI, randomItem }) {
   // Display Side
@@ -18,18 +19,22 @@ function Display({ handleRespin, handleDictionaryAPI, randomItem }) {
 
   return (
     <div className="pictureDisplayContainer">
-      <button onClick={handleRespin}>
-        <ImSpinner11 />
-      </button>
-      <button onClick={handleDictionaryAPI}>
-        <PiSpeakerLowBold />
-      </button>
-      {randomItem && (
-        <>
-          <h2>{randomItem.name}</h2>
-          <img src={randomItem.image} alt={randomItem.name} />
-        </>
-      )}
+      <div className="displaySideBtns">
+        <button className="displayBtn" onClick={handleRespin}>
+          <ImSpinner11 />
+        </button>
+        <button className="displayBtn" onClick={handleDictionaryAPI}>
+          <PiSpeakerLowBold />
+        </button>
+      </div>
+      <div className="randomDisplayItem">
+        {randomItem && (
+          <>
+            <h2>{randomItem.name}</h2>
+            <img src={randomItem.image} alt={randomItem.name} />
+          </>
+        )}
+      </div>
     </div>
   );
 }

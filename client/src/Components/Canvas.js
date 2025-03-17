@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { Stage, Layer, Line } from "react-konva";
+import { IoColorPaletteOutline } from "react-icons/io5";
 
 function Canvas({ randomItem }) {
   // Canvas Side
@@ -15,7 +16,10 @@ function Canvas({ randomItem }) {
   const stageRef = useRef(false);
 
   const canvasContainerRef = useRef(null);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const [canvasSize, setCanvasSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   useEffect(() => {
     if (canvasContainerRef.current) {
@@ -134,7 +138,6 @@ function Canvas({ randomItem }) {
 
   return (
     <div className="canvasContainer" ref={canvasContainerRef}>
-      <h2>Canvas Side</h2>
       <div className="canvasTools">
         <select
           value={tool}
@@ -148,7 +151,14 @@ function Canvas({ randomItem }) {
         <button type="button" onClick={handleClearPage}>
           Clear Page
         </button>
-        <Popup className="popup=content" trigger={<button>Pick Color</button>}>
+        <Popup
+          className="popup=content"
+          trigger={
+            <button>
+              <IoColorPaletteOutline />
+            </button>
+          }
+        >
           <div className="colorPickerContainer">
             {" "}
             <HexColorPicker color={color} onChange={setColor} />
@@ -158,7 +168,7 @@ function Canvas({ randomItem }) {
         {/* <button onClick={handleSaveImage}>Save Image</button> */}
         <button onClick={calculateScore}>Get Score</button>
       </div>
-      <p>{score === null ? "Awaiting score..." : score}</p>
+      {/* <p>{score === null ? "Awaiting score..." : score}</p> */}
       <Stage
         width={canvasSize.width}
         height={canvasSize.height}
