@@ -8,12 +8,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
+
+app.set("trust proxy", 1);
 
 app.use(cors({ origin: "https://ivysgame.netlify.app/", credentials: true }));
 
@@ -25,6 +22,11 @@ app.use(
   "/images",
   express.static(path.join(__dirname, "client", "assets", "data"))
 );
+
+const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.post("/save-image", async (req, res) => {
   const { userImage, metadata } = req.body;
