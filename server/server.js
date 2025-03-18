@@ -11,6 +11,8 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
+
 const app = express();
 
 app.set("trust proxy", 1);
@@ -24,8 +26,6 @@ app.use(
   "/images",
   express.static(path.join(__dirname, "client", "assets", "data"))
 );
-
-const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
 
 app.post("/save-image", async (req, res) => {
   const { userImage, metadata } = req.body;
