@@ -15,7 +15,7 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-app.use(cors({ origin: "https://ivysgame.netlify.app/", credentials: true }));
+app.use(cors({ origin: "https://ivysgame.netlify.app", credentials: true }));
 
 // app.use(cors());
 app.options("*", cors());
