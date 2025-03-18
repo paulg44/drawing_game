@@ -14,8 +14,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
+
+app.use(cors({ origin: "https://ivysgame.netlify.app/", credentials: true }));
+
+// app.use(cors());
+app.options("*", cors());
 app.use(express.json({ limit: "100mb" }));
+
 app.use(
   "/images",
   express.static(path.join(__dirname, "client", "assets", "data"))

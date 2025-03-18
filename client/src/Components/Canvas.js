@@ -83,16 +83,21 @@ function Canvas({ randomItem }) {
     console.log(base64String.slice(0, 50));
 
     try {
-      const response = await fetch("http://localhost:3020/compare-images", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userImage: base64String,
-          randomImageName: randomItem.name,
-        }),
-      });
+      const response = await fetch(
+        // "http://localhost:3020/compare-images",
+        "https://ivysgame.netlify.app/compare-images",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            userImage: base64String,
+            randomImageName: randomItem.name,
+          }),
+        }
+      );
 
       const data = await response.json();
       console.log("Comparison data:", data.response);
