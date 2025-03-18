@@ -85,7 +85,7 @@ function Canvas({ randomItem }) {
     try {
       const response = await fetch(
         // "http://localhost:3020/compare-images",
-        "https://ivysgame.netlify.app/compare-images",
+        "https://drawing-game-6s94.onrender.com/compare-images",
         {
           method: "POST",
           headers: {
