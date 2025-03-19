@@ -29,7 +29,7 @@ function Canvas({ randomItem }) {
   useEffect(() => {
     if (canvasContainerRef.current) {
       setCanvasSize({
-        width: 518,
+        width: canvasContainerRef.current.offsetWidth,
         height: canvasContainerRef.current.offsetHeight,
       });
     }
