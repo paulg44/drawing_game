@@ -1,7 +1,7 @@
 import "../../assets/css/Display.css";
 import DisplayBtns from "./DisplayBtns";
 
-function Display({ randomItem, handleRespin, handleDictionaryApi }) {
+function Display({ randomItem, handleRespin, handleDictionaryAPI }) {
   if (!randomItem) {
     return (
       <div>
@@ -16,8 +16,9 @@ function Display({ randomItem, handleRespin, handleDictionaryApi }) {
       <DisplayBtns
         randomItem={randomItem.name}
         onRespin={handleRespin}
-        onDictionaryName={handleDictionaryApi}
+        onSound={handleDictionaryAPI}
       />
+
       <div className="randomDisplayItem">
         {randomItem && (
           <>
