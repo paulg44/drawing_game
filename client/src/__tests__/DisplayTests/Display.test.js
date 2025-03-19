@@ -1,5 +1,5 @@
 import { screen, render } from "@testing-library/react";
-import Display from "../../Components/Display";
+import Display from "../../Components/RandomItemDisplay/Display";
 import { MemoryRouter } from "react-router-dom";
 import { CategoryProvider } from "../../context/CategoryContext";
 
@@ -19,7 +19,7 @@ test("renders with two buttons", async () => {
   render(
     <MemoryRouter>
       <CategoryProvider initialCategory={category}>
-        <Display />
+        <Display randomItem={randomItem} />
       </CategoryProvider>
     </MemoryRouter>
   );
