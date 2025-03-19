@@ -65,5 +65,17 @@
 }
 
 .startBtn {
-  /* margin-top: 30px; */
+  border: 2px solid rgb(234, 164, 234);
+  background-color: transparent;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .categoryListContainer {
+    display: flex;
+    flex-direction: column;
+    background-position: cover;
+  }
 }

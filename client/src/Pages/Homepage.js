@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
 // import { useState } from "react";
@@ -54,7 +54,6 @@ function Homepage() {
       <button className="startBtn" onClick={startGame}>
         Start Game
       </button>
-      <Link to="/score">Scores</Link>
     </div>
   );
 }
