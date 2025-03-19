@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCategory } from "../context/CategoryContext";
+import { fetchDictionaryAPI } from "../services/dictionaryApi";
 
 export function useGameLogic() {
   const [randomItem, setRandomItem] = useState(null);
@@ -18,22 +19,11 @@ export function useGameLogic() {
   };
 
   const handleDictionaryAPI = async () => {
-    try {
-      const apiResponse = await fetch(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${randomItem.name}`
-      );
-      const apiData = await apiResponse.json();
-      const audioUrl =
-        apiData[0].phonetics[1].audio || apiData[0].phonetics[0].audio;
-      if (audioUrl) {
-        const audio = new Audio(audioUrl);
-        audio.play();
-      }
-    } catch (error) {
-      console.error(
-        "error fetching dictionary data or saving display image:",
-        error
-      );
+    if (!randomItem) return;
+    const audioUrl = await fetchDictionaryAPI(randomItem.name);
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
+      audio.play();
     }
   };
 
