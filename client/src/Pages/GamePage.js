@@ -1,7 +1,7 @@
 import "../assets/css/GamePage.css";
 import { useEffect, useState } from "react";
 import { useCategory } from "../context/CategoryContext";
-import Canvas from "../Components/Canvas";
+import Canvas from "../Components/Canvas/Canvas";
 import Display from "../Components/Display";
 
 function GamePage() {
