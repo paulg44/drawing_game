@@ -15,7 +15,19 @@ const category = {
 
 const randomItem = category.items[2];
 
-test("renders with two buttons", async () => {
+test("renders a message when no category is selected", () => {
+  render(
+    <MemoryRouter>
+      <CategoryProvider initialCategory={category}>
+        <Display />
+      </CategoryProvider>
+    </MemoryRouter>
+  );
+
+  expect(screen.getByText(/no category selected/i)).toBeInTheDocument();
+});
+
+test("renders with two buttons when random item is present", async () => {
   render(
     <MemoryRouter>
       <CategoryProvider initialCategory={category}>
@@ -28,7 +40,7 @@ test("renders with two buttons", async () => {
   expect(btns).toHaveLength(2);
 });
 
-test("renders with random header and image", async () => {
+test("renders with correct random header and image", async () => {
   render(
     <MemoryRouter>
       <CategoryProvider initialCategory={category}>

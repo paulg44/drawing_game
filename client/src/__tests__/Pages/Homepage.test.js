@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
-import Homepage from "../Pages/Homepage";
+import Homepage from "../../Pages/Homepage";
 import { MemoryRouter } from "react-router-dom";
-import { CategoryProvider } from "../context/CategoryContext";
+import { CategoryProvider } from "../../context/CategoryContext";
 
 test("homepage renders with pick a category", async () => {
   render(
