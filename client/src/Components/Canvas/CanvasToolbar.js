@@ -1,6 +1,8 @@
+import "../../assets/css/CanvasToolbar.css";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
-import { IoColorPaletteOutline } from "react-icons/io5";
+import { IoColorPaletteOutline, IoTrashBin } from "react-icons/io5";
+// import { TiTickOutline } from "react-icons/ti";
 
 const CanvasToolbar = ({
   tool,
@@ -21,25 +23,33 @@ const CanvasToolbar = ({
         <option value="pen">Pen</option>
         <option value="eraser">Eraser</option>
       </select>
-      <button type="button" onClick={onClear}>
-        Clear Page
-      </button>
+
       <Popup
-        className="popup=content"
+        className="popupContent"
         trigger={
-          <button>
+          <button className="popUpBtn">
             <IoColorPaletteOutline />
           </button>
         }
       >
-        <div className="colorPickerContainer">
+        <div
+          className="colorPickerContainer"
+          style={{ position: "absolute", bottom: "0", right: "0" }}
+        >
           {" "}
           <HexColorPicker color={color} onChange={setColor} />
         </div>
       </Popup>
 
       {/* <button onClick={handleSaveImage}>Save Image</button> */}
-      <button onClick={onGetScore}>Get Score</button>
+      <div className="submitClearBtns">
+        <button type="button" onClick={onClear} className="clearAllBtn">
+          <IoTrashBin />
+        </button>
+        <button onClick={onGetScore} className="submitUserDrawingBtn">
+          &#10003;
+        </button>
+      </div>
     </div>
   );
 };

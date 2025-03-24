@@ -1,0 +1,57 @@
+.canvasTools {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  bottom: 20px;
+  right: 20px;
+
+  button {
+    border-radius: 50%;
+    margin: 5px;
+    font-size: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .submitClearBtns {
+    display: flex;
+    align-items: flex-end;
+
+    .clearAllBtn {
+      background-color: transparent;
+      color: red;
+      border: 2px solid red;
+    }
+
+    .submitUserDrawingBtn {
+      color: green;
+      background-color: transparent;
+      width: 100px;
+      height: 100px;
+      border: 2px solid green;
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .canvasTools {
+    button {
+      font-size: 26px;
+      height: 50px;
+      width: 50px;
+    }
+
+    .submitClearBtns {
+      .submitUserDrawingBtn {
+        font-size: 40px;
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
