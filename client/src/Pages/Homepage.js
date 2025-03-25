@@ -4,13 +4,17 @@ import kidsData from "../assets/data/kidsCategories.json";
 // import { useState } from "react";
 import { useCategory } from "../context/CategoryContext";
 import backgroundIMG from "../assets/images/backgroundHomepage.jpg";
+import { useSound } from "use-sound";
+import btnFX from "../assets/audio/fx/mixkit-game-ball-tap-2073.wav";
 
 function Homepage() {
+  const [play] = useSound(btnFX);
   const { category, setCategory } = useCategory();
   const mainCategories = Object.keys(kidsData.kidsCategories);
   const navigate = useNavigate();
 
   function handleCategorySelection(categoryItem) {
+    play();
     const selectedCategory = kidsData.kidsCategories[categoryItem];
     setCategory({ name: categoryItem, items: selectedCategory });
   }
