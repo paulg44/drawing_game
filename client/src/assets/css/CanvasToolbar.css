@@ -5,6 +5,7 @@
   align-items: flex-end;
   bottom: 20px;
   right: 20px;
+  z-index: 10;
 
   button {
     border-radius: 50%;
