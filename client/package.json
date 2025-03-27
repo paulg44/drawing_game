@@ -49,10 +49,11 @@
     ]
   },
   "devDependencies": {
-    "jest-canvas-mock": "^2.5.2",
-    "msw": "^0.49.2"
+    "jest-canvas-mock": "^2.5.2"
   },
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

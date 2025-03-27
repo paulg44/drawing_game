@@ -1,18 +1,1 @@
-/* Smartphones */
-@media only screen and (max-width: 600px) {
-  .pictureDisplayContainer {
-    .displaySideBtns {
-      position: absolute;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
 
-      .displayBtn {
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        border-radius: 50%;
-      }
-    }
-  }
-}

@@ -1,5 +1,6 @@
 import { ImSpinner11 } from "react-icons/im";
 import { PiSpeakerLowBold } from "react-icons/pi";
+import "../../assets/css/DisplayBtns.css";
 
 const DisplayBtns = ({ onRespin, onSound }) => {
   return (

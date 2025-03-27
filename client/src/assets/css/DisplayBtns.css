@@ -1,0 +1,40 @@
+.displaySideBtns {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 10px;
+  bottom: 10px;
+
+  .displayBtn {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    border-radius: 50%;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid blueviolet;
+    color: blueviolet;
+  }
+}
+
+/* Smartphones */
+@media only screen and (max-width: 600px) {
+  .displaySideBtns {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    top: 10px;
+    right: 10px;
+    height: 60px;
+
+    .displayBtn {
+      width: 50px;
+      height: 50px;
+      font-size: 26px;
+      margin: 0 5px;
+    }
+  }
+}
