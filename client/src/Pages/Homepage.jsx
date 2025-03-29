@@ -6,6 +6,7 @@ import { useCategory } from "../context/CategoryContext";
 import backgroundIMG from "../assets/images/backgroundHomepage.jpg";
 import { useSound } from "use-sound";
 import btnFX from "../assets/audio/fx/mixkit-game-ball-tap-2073.wav";
+// import { IoShapesSharp } from "react-icons/io5";
 
 function Homepage() {
   const [play] = useSound(btnFX);
@@ -15,7 +16,7 @@ function Homepage() {
 
   function handleCategorySelection(categoryItem) {
     play();
-    const selectedCategory = kidsData.kidsCategories[categoryItem];
+    const selectedCategory = kidsData.kidsCategories[categoryItem].items;
     setCategory({ name: categoryItem, items: selectedCategory });
   }
 
@@ -43,8 +44,11 @@ function Homepage() {
             className={`categoryBtn ${categoryItem}`}
             key={index}
             onClick={() => handleCategorySelection(categoryItem)}
+            style={{
+              background: `url(${kidsData.kidsCategories[categoryItem].image}) no-repeat center center/cover`,
+            }}
           >
-            {categoryItem}
+            <span>{categoryItem}</span>
           </button>
         ))}
       </div>

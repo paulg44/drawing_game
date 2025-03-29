@@ -1,96 +1,108 @@
 {
   "kidsCategories": {
-    "shapes": [
-      {
-        "id": 1,
-        "name": "circle",
-        "image": "/images/shapes/circle.jpg"
-      },
-      {
-        "id": 2,
-        "name": "square",
-        "image": "/images/shapes/square_2.png"
-      },
-      {
-        "id": 3,
-        "name": "triangle",
-        "image": "/images/shapes/triangle.jpg"
-      },
-      {
-        "id": 4,
-        "name": "star",
-        "image": "/images/shapes/star.jpg"
-      }
-    ],
-    "letters": [
-      {
-        "id": 1,
-        "name": "A",
-        "image": "/images/letters/letter_A.jpg",
-        "imageAlt": "A"
-      },
-      {
-        "id": 2,
-        "name": "B",
-        "image": "/images/letters/letter_B.jpg",
-        "imageAlt": "B"
-      },
-      {
-        "id": 3,
-        "name": "C",
-        "image": "/images/letters/letter_C.jpg",
-        "imageAlt": "C"
-      },
-      {
-        "id": 4,
-        "name": "D",
-        "image": "/images/letters/letter_D.jpg",
-        "imageAlt": "D"
-      }
-    ],
-    "numbers": [
-      {
-        "id": 1,
-        "name": "One",
-        "image": "/images/numbers/number_1.png"
-      },
-      {
-        "id": 2,
-        "name": "Two",
-        "image": "/images/numbers/number_2.png"
-      },
-      {
-        "id": 3,
-        "name": "Three",
-        "image": "/images/numbers/number_3.png"
-      },
-      {
-        "id": 4,
-        "name": "Four",
-        "image": "/images/numbers/number_4.png"
-      }
-    ],
-    "animals": [
-      {
-        "id": 1,
-        "name": "cat",
-        "image": "/images/animals/cat.png"
-      },
-      {
-        "id": 2,
-        "name": "dog",
-        "image": "/images/animals/dog.png"
-      },
-      {
-        "id": 3,
-        "name": "elephant",
-        "image": "/images/animals/elephant.PNG"
-      },
-      {
-        "id": 4,
-        "name": "octopus",
-        "image": "/images/animals/octopus.png"
-      }
-    ]
+    "shapes": {
+      "image": "/images/backgroundImages/shapesBg.png",
+      "items": [
+        {
+          "id": 1,
+          "name": "circle",
+          "image": "/images/shapes/circle.jpg"
+        },
+        {
+          "id": 2,
+          "name": "square",
+          "image": "/images/shapes/square_2.png"
+        },
+        {
+          "id": 3,
+          "name": "triangle",
+          "image": "/images/shapes/triangle.jpg"
+        },
+        {
+          "id": 4,
+          "name": "star",
+          "image": "/images/shapes/star.jpg"
+        }
+      ]
+    },
+    "letters": {
+      "image": "/images/backgroundImages/alphabetBg.png",
+      "items": [
+        {
+          "id": 1,
+          "name": "A",
+          "image": "/images/letters/letter_A.jpg",
+          "imageAlt": "A"
+        },
+        {
+          "id": 2,
+          "name": "B",
+          "image": "/images/letters/letter_B.jpg",
+          "imageAlt": "B"
+        },
+        {
+          "id": 3,
+          "name": "C",
+          "image": "/images/letters/letter_C.jpg",
+          "imageAlt": "C"
+        },
+        {
+          "id": 4,
+          "name": "D",
+          "image": "/images/letters/letter_D.jpg",
+          "imageAlt": "D"
+        }
+      ]
+    },
+    "numbers": {
+      "image": "/images/backgroundImages/numbersBg.png",
+      "items": [
+        {
+          "id": 1,
+          "name": "One",
+          "image": "/images/numbers/number_1.png"
+        },
+        {
+          "id": 2,
+          "name": "Two",
+          "image": "/images/numbers/number_2.png"
+        },
+        {
+          "id": 3,
+          "name": "Three",
+          "image": "/images/numbers/number_3.png"
+        },
+        {
+          "id": 4,
+          "name": "Four",
+          "image": "/images/numbers/number_4.png"
+        }
+      ]
+    },
+    "animals": {
+      "image": "/images/backgroundImages/animalBg.png",
+      "items": [
+        {
+          "id": 1,
+          "name": "cat",
+          "image": "/images/animals/cat.png"
+        },
+        {
+          "id": 2,
+          "name": "dog",
+          "image": "/images/animals/dog.png"
+        },
+        {
+          "id": 3,
+          "name": "elephant",
+          "image": "/images/animals/elephant.PNG"
+        },
+        {
+          "id": 4,
+          "name": "octopus",
+          "image": "/images/animals/octopus.png"
+        }
+      ]
+    }
   }
 }
