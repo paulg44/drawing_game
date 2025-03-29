@@ -4,19 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-// async function enableMocking() {
-//   const { worker } = await import("./mocks/browser.js");
-//   return worker.start();
-// }
+async function enableMocking() {
+  const { worker } = await import("./mocks/browser.js");
+  return worker.start();
+}
 
-// enableMocking().then(() => {
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-// });
+enableMocking().then(() => {
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
