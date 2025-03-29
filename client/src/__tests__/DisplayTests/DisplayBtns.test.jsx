@@ -1,6 +1,7 @@
 import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import DisplayBtns from "../../Components/RandomItemDisplay/DisplayBtns";
+import { vi } from "vitest";
 
 test("renders with two buttons", async () => {
   render(<DisplayBtns />);
@@ -10,7 +11,7 @@ test("renders with two buttons", async () => {
 });
 
 test("onRespin gets called on button click", async () => {
-  const mock = jest.fn();
+  const mock = vi.fn();
   render(<DisplayBtns onRespin={mock} />);
 
   const respinBtn = screen.getByTestId("respinBtn");
@@ -21,7 +22,7 @@ test("onRespin gets called on button click", async () => {
 });
 
 test("onSound gets called on button click", async () => {
-  const mock = jest.fn();
+  const mock = vi.fn();
   render(<DisplayBtns onSound={mock} />);
 
   const soundBtn = screen.getByTestId("soundBtn");
