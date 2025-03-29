@@ -43,10 +43,19 @@ const CanvasToolbar = ({
 
       {/* <button onClick={handleSaveImage}>Save Image</button> */}
       <div className="submitClearBtns">
-        <button type="button" onClick={onClear} className="clearAllBtn">
+        <button
+          type="button"
+          onClick={onClear}
+          className="clearAllBtn"
+          data-testid="clearAllBtn"
+        >
           <IoTrashBin />
         </button>
-        <button onClick={onGetScore} className="submitUserDrawingBtn">
+        <button
+          onClick={onGetScore}
+          className="submitUserDrawingBtn"
+          data-testid="submitImageBtn"
+        >
           &#10003;
         </button>
       </div>

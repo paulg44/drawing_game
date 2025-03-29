@@ -8,4 +8,10 @@ export const handlers = [
       },
     ]);
   }),
+
+  http.get("http://localhost:3020/compare-images", async ({ request }) => {
+    const body = await request.json();
+    console.log("Mocked request received", body);
+    return HttpResponse.json({ response: "Excellent" });
+  }),
 ];
