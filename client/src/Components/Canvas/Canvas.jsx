@@ -7,6 +7,8 @@ import CanvasToolbar from "./CanvasToolbar";
 
 function Canvas({ randomItem }) {
   const [score, setScore] = useState("Awaiting Score...");
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const {
     tool,
     setTool,
@@ -47,12 +49,14 @@ function Canvas({ randomItem }) {
   }, []);
 
   const handleCalculateScore = async () => {
+    setIsDisabled(true);
     const userImageData = stageRef.current.toDataURL();
     const base64String = userImageData.split(",")[1];
     const score = await calculateScore(base64String, randomItem.name);
     console.log("Score:", score);
 
     setScore(score);
+    setIsDisabled(false);
   };
 
   return (
@@ -65,6 +69,7 @@ function Canvas({ randomItem }) {
         setColor={setColor}
         onClear={() => setLines([])}
         onGetScore={handleCalculateScore}
+        isDisabled={isDisabled}
       />
       <CanvasStage
         stageRef={stageRef}

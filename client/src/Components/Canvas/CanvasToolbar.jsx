@@ -2,7 +2,6 @@ import "../../assets/css/CanvasToolbar.css";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { IoColorPaletteOutline, IoTrashBin } from "react-icons/io5";
-// import { TiTickOutline } from "react-icons/ti";
 
 const CanvasToolbar = ({
   tool,
@@ -11,6 +10,7 @@ const CanvasToolbar = ({
   setColor,
   onClear,
   onGetScore,
+  isDisabled,
 }) => {
   return (
     <div className="canvasTools">
@@ -41,7 +41,6 @@ const CanvasToolbar = ({
         </div>
       </Popup>
 
-      {/* <button onClick={handleSaveImage}>Save Image</button> */}
       <div className="submitClearBtns">
         <button
           type="button"
@@ -53,6 +52,7 @@ const CanvasToolbar = ({
         </button>
         <button
           onClick={onGetScore}
+          disabled={isDisabled}
           className="submitUserDrawingBtn"
           data-testid="submitImageBtn"
         >
