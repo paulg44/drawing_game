@@ -2,16 +2,18 @@ import "../../assets/css/CanvasToolbar.css";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { IoColorPaletteOutline, IoTrashBin } from "react-icons/io5";
+import { useCanvasContext } from "../../context/CanvasContext";
 
-const CanvasToolbar = ({
-  tool,
-  setTool,
-  color,
-  setColor,
-  onClear,
-  onGetScore,
-  isDisabled,
-}) => {
+const CanvasToolbar = () => {
+  const {
+    tool,
+    setTool,
+    color,
+    setColor,
+    clearCanvas,
+    handleCalculateScore,
+    isDisabled,
+  } = useCanvasContext();
   return (
     <div className="canvasTools">
       <select
@@ -44,14 +46,14 @@ const CanvasToolbar = ({
       <div className="submitClearBtns">
         <button
           type="button"
-          onClick={onClear}
+          onClick={clearCanvas}
           className="clearAllBtn"
           data-testid="clearAllBtn"
         >
           <IoTrashBin />
         </button>
         <button
-          onClick={onGetScore}
+          onClick={handleCalculateScore}
           disabled={isDisabled}
           className="submitUserDrawingBtn"
           data-testid="submitImageBtn"

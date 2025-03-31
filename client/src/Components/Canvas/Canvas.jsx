@@ -1,86 +1,66 @@
 import "../../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
-import { useCanvas } from "../../hooks/useCanvas";
-import { calculateScore } from "../../services/canvasApi";
+import { CanvasProvider, useCanvasContext } from "../../context/CanvasContext";
 import CanvasStage from "./CanvasStage";
 import CanvasToolbar from "./CanvasToolbar";
 
 function Canvas({ randomItem }) {
-  const [score, setScore] = useState("Awaiting Score...");
-  const [isDisabled, setIsDisabled] = useState(false);
+  return (
+    <CanvasProvider randomItem={randomItem}>
+      <CanvasContent />
+    </CanvasProvider>
+  );
 
-  const {
-    tool,
-    setTool,
-    color,
-    setColor,
-    lines,
-    setLines,
-    stageRef,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseMove,
-  } = useCanvas();
+  function CanvasContent() {
+    const {
+      score,
+      stageRef,
+      lines,
+      handleMouseDown,
+      handleMouseMove,
+      handleMouseUp,
+    } = useCanvasContext();
+    const canvasContainerRef = useRef(null);
+    const [canvasSize, setCanvasSize] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
 
-  const canvasContainerRef = useRef(null);
-  const [canvasSize, setCanvasSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  useEffect(() => {
-    if (canvasContainerRef.current) {
-      setCanvasSize({
-        width: canvasContainerRef.current.offsetWidth,
-        height: canvasContainerRef.current.offsetHeight,
-      });
-    }
-
-    const handleResize = () => {
+    useEffect(() => {
       if (canvasContainerRef.current) {
         setCanvasSize({
-          width: 518,
+          width: canvasContainerRef.current.offsetWidth,
           height: canvasContainerRef.current.offsetHeight,
         });
       }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  const handleCalculateScore = async () => {
-    setIsDisabled(true);
-    const userImageData = stageRef.current.toDataURL();
-    const base64String = userImageData.split(",")[1];
-    const score = await calculateScore(base64String, randomItem.name);
-    console.log("Score:", score);
+      const handleResize = () => {
+        if (canvasContainerRef.current) {
+          setCanvasSize({
+            width: 518,
+            height: canvasContainerRef.current.offsetHeight,
+          });
+        }
+      };
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-    setScore(score);
-    setIsDisabled(false);
-  };
-
-  return (
-    <div className="canvasContainer" ref={canvasContainerRef}>
-      <p>{score === null ? "Awaiting score..." : score}</p>
-      <CanvasToolbar
-        tool={tool}
-        setTool={setTool}
-        color={color}
-        setColor={setColor}
-        onClear={() => setLines([])}
-        onGetScore={handleCalculateScore}
-        isDisabled={isDisabled}
-      />
-      <CanvasStage
-        stageRef={stageRef}
-        lines={lines}
-        handleMouseDown={handleMouseDown}
-        handleMouseMove={handleMouseMove}
-        handleMouseUp={handleMouseUp}
-        canvasSize={canvasSize}
-      />
-    </div>
-  );
+    return (
+      <div className="canvasContainer" ref={canvasContainerRef}>
+        <p>{score === null ? "Awaiting score..." : score}</p>
+        <CanvasToolbar />
+        <CanvasStage
+          stageRef={stageRef}
+          lines={lines}
+          handleMouseDown={handleMouseDown}
+          handleMouseMove={handleMouseMove}
+          handleMouseUp={handleMouseUp}
+          canvasSize={canvasSize}
+        />
+      </div>
+    );
+  }
 }
 
 export default Canvas;
