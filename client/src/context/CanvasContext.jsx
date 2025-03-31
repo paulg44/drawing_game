@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef } from "react";
+import { createContext, useContext, useState } from "react";
 import { useCanvas } from "../hooks/useCanvas";
 import { calculateScore } from "../services/canvasApi";
 

@@ -2,35 +2,44 @@ import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import CanvasToolbar from "../../Components/Canvas/CanvasToolbar";
 import { expect, vi } from "vitest";
+import { CanvasProvider } from "../../context/CanvasContext";
 
 test("toolbar has three buttons", () => {
-  render(<CanvasToolbar />);
+  render(
+    <CanvasProvider>
+      <CanvasToolbar />
+    </CanvasProvider>
+  );
 
   const btns = screen.getAllByRole("button");
 
   expect(btns).toHaveLength(3);
 });
 
-test("onGetScore is called when button clicked", async () => {
-  const mockOnGetScore = vi.fn();
+test("submit btn is disabled after clicked", async () => {
+  render(
+    <CanvasProvider>
+      <CanvasToolbar />
+    </CanvasProvider>
+  );
 
-  render(<CanvasToolbar onGetScore={mockOnGetScore} />);
+  const getScoreBtn = screen.getByTestId("submitImageBtn");
 
-  const onGetScoreBtn = screen.getByTestId("submitImageBtn");
+  user.click(getScoreBtn);
 
-  user.click(onGetScoreBtn);
-
-  expect(mockOnGetScore).toHaveBeenCalled();
+  expect(getScoreBtn).toBeDisabled();
 });
 
-test("onClear is called when button clicked", async () => {
-  const mockOnClear = vi.fn();
+test("clearCanvas btn should remain enabled when clicked", async () => {
+  render(
+    <CanvasProvider>
+      <CanvasToolbar />
+    </CanvasProvider>
+  );
 
-  render(<CanvasToolbar onClear={mockOnClear} />);
+  const clearCanvasBtn = screen.getByTestId("clearAllBtn");
 
-  const onClearBtn = screen.getByTestId("clearAllBtn");
+  user.click(clearCanvasBtn);
 
-  user.click(onClearBtn);
-
-  expect(mockOnClear).toHaveBeenCalled();
+  expect(clearCanvasBtn).toBeEnabled();
 });

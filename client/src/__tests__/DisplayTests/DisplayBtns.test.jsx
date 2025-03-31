@@ -1,7 +1,6 @@
 import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import DisplayBtns from "../../Components/RandomItemDisplay/DisplayBtns";
-import { vi } from "vitest";
 
 test("renders with two buttons", async () => {
   render(<DisplayBtns />);
