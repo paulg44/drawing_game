@@ -3,11 +3,14 @@ import user from "@testing-library/user-event";
 import CanvasToolbar from "../../Components/Canvas/CanvasToolbar";
 import { expect, vi } from "vitest";
 import { CanvasProvider } from "../../context/CanvasContext";
+import { ScoreProvider } from "../../context/ScoreContext";
 
 test("toolbar has three buttons", () => {
   render(
     <CanvasProvider>
-      <CanvasToolbar />
+      <ScoreProvider>
+        <CanvasToolbar />
+      </ScoreProvider>
     </CanvasProvider>
   );
 
@@ -20,7 +23,9 @@ test("toolbar has three buttons", () => {
 test("submit btn is disabled after clicked", async () => {
   render(
     <CanvasProvider>
-      <CanvasToolbar />
+      <ScoreProvider>
+        <CanvasToolbar />
+      </ScoreProvider>
     </CanvasProvider>
   );
 
@@ -34,7 +39,9 @@ test("submit btn is disabled after clicked", async () => {
 test("clearCanvas btn should remain enabled when clicked", async () => {
   render(
     <CanvasProvider>
-      <CanvasToolbar />
+      <ScoreProvider>
+        <CanvasToolbar />
+      </ScoreProvider>
     </CanvasProvider>
   );
 

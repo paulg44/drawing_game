@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { calculateScore } from "../services/canvasApi";
 import { useCanvasContext } from "./CanvasContext";
 
@@ -9,7 +9,7 @@ export const ScoreProvider = ({ children, randomItem }) => {
   const [score, setScore] = useState("Awaiting Score...");
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { stageRef } = useCanvasContext();
 
   const handleCalculateScore = async () => {
