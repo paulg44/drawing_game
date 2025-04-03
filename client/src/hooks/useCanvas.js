@@ -43,6 +43,8 @@ export const useCanvas = () => {
     document.removeEventListener("touchmove", handleDisableScroll);
   };
 
+  const clearCanvas = () => setLines([]);
+
   return {
     tool,
     setTool,
@@ -54,5 +56,6 @@ export const useCanvas = () => {
     handleMouseDown,
     handleMouseMove,
     handleMouseUp,
+    clearCanvas,
   };
 };

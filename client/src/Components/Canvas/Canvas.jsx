@@ -3,23 +3,21 @@ import { useEffect, useRef, useState } from "react";
 import { CanvasProvider, useCanvasContext } from "../../context/CanvasContext";
 import CanvasStage from "./CanvasStage";
 import CanvasToolbar from "./CanvasToolbar";
+import { ScoreProvider, useScoreContext } from "../../context/ScoreContext";
 
 function Canvas({ randomItem }) {
   return (
-    <CanvasProvider randomItem={randomItem}>
-      <CanvasContent />
+    <CanvasProvider>
+      <ScoreProvider randomItem={randomItem}>
+        <CanvasContent />
+      </ScoreProvider>
     </CanvasProvider>
   );
 
   function CanvasContent() {
-    const {
-      score,
-      stageRef,
-      lines,
-      handleMouseDown,
-      handleMouseMove,
-      handleMouseUp,
-    } = useCanvasContext();
+    const { stageRef, lines, handleMouseDown, handleMouseMove, handleMouseUp } =
+      useCanvasContext();
+    const { score } = useScoreContext();
     const canvasContainerRef = useRef(null);
     const [canvasSize, setCanvasSize] = useState({
       width: window.innerWidth,

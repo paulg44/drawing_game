@@ -3,17 +3,11 @@ import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { IoColorPaletteOutline, IoTrashBin } from "react-icons/io5";
 import { useCanvasContext } from "../../context/CanvasContext";
+import { useScoreContext } from "../../context/ScoreContext";
 
 const CanvasToolbar = () => {
-  const {
-    tool,
-    setTool,
-    color,
-    setColor,
-    clearCanvas,
-    handleCalculateScore,
-    isDisabled,
-  } = useCanvasContext();
+  const { tool, setTool, color, setColor, clearCanvas } = useCanvasContext();
+  const { handleCalculateScore, isDisabled } = useScoreContext();
   return (
     <div className="canvasTools">
       <select
