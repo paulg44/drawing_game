@@ -1,4 +1,4 @@
-// Component to hold the Canvas for a user to draw on, we also import the canvas toolbar here to have it overlaid on the top of the canvas only.
+// Component to hold the Canvas for a user to draw on, we also import the canvas toolbar here to be positioned over the canvas using CSS.
 
 import "../../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import { ScoreProvider, useScoreContext } from "../../context/ScoreContext";
 // randomItem is passed into this component and then on into the ScoreProvider as we need the name of the randomItem in the handleCalculateScore function
 function Canvas({ randomItem }) {
   return (
-    // Wrap the Canvas in the context to be able to pass the props down
+    // Wrap canvas in CanvasProvider and ScoreProvider to give child components access to canvas state and scoring logic.
     <CanvasProvider>
       <ScoreProvider randomItem={randomItem}>
         <CanvasContent />
@@ -39,10 +39,11 @@ function Canvas({ randomItem }) {
         });
       }
 
+      // If screen is resized during the drawing process the canvas will resize to fit the window
       const handleResize = () => {
         if (canvasContainerRef.current) {
           setCanvasSize({
-            width: 518,
+            width: canvasContainerRef.current.offsetWidth,
             height: canvasContainerRef.current.offsetHeight,
           });
         }
@@ -55,6 +56,7 @@ function Canvas({ randomItem }) {
       <div className="canvasContainer" ref={canvasContainerRef}>
         <p>{score === null ? "Awaiting score..." : score}</p>
         <CanvasToolbar />
+        {/* Props from canvasContext are passed into CanvasStage for rendering and interaction. */}
         <CanvasStage
           stageRef={stageRef}
           lines={lines}
