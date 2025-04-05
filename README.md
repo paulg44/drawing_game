@@ -2,23 +2,26 @@
 
 ## Current State and things I've tried
 
-The current state of the application is a user can pick a topic (shapes for testing), start the game, draw the corresponding shape on the canvas (change colour and erase also), then either save the images to the server to be compared later (more on this below), or compare the images straight away from the server. The issue I'm having is how exactly to compare the images, as it is a game aimed at kids.
+The current state of the application is a user can pick a topic (shapes for testing), start the game, draw the corresponding shape on the canvas (change colour and erase also). Once a user is ready to submit there canvas picture, they can click the submit button and the image gets converted to a base64string, then gets sent over to the server along with the randomItem.name, which then in turn gets sent to Gemini to be compared and a "score" is returned.
 
-Things tried so far
+## Ongoing and next steps
 
-- The current way of it working is it using pixelMatch to compare both images when sent to the server. This works fine but it is far to exact for what I need
-- Using resemblejs and sharp, I couldn't get these to work together well because of the file type's. Possible revisit
-- Lastly I have tried with OpenCV.js. This felt like it could work as it is the SSIM I initially thought I would use, however it pretty much crashed my laptop when I tried to run it. JavaScript heap out of memory was the error. I think doing it this way the data set is too large and would, if ever in production, crash the users device.
+Comments - I'm currently adding a lot of comments. Now if your a seasoned developer these comments could seem pointless and advertising the obvious. But for me, as someone that is learning they are of a benefit as the project is getting rather large and I want to have a huge understanding of every small part that's happening.
 
-Which leads me to what I will be trying next
+Database - As the project grows I would like to add a lot more data with more shapes more animals and in general more data. To do this I am planning on adding a MonoDB Database and integrate this soon.
 
-- My current hypothesis is to use an external AI such as openai. I am currently learning openai and how it all works in a separate repo, along with working out how much it would actually cost to run a single image comparison.
-- I could also possibly use something like TensorFlow, try BLIP (need more research), Azure or Google Cloud Vision.
+Score Component - Create a score component that displays the score.
+
+AI Learning & Tweaking - Add a lot more data to the AI so it is smarter when it comes to comparing the images a user has drawn. It can sometimes be harsh and I need to train it to be more lenient at times.
+
+Educational Research - While this starter as a small project thought up by a 4 year old. It genuinely has become far more than that. I want to research more into the educational side of it. I am trying to setup a meeting with a few teachers to get some insight on if it would be beneficial for primary age children and if I could add in things like diagraphs to make it even more targeted towards education.
+
+Games - This is a game, so in complete opposition to the above I would like to add more game modes like a story and a battle mode.
 
 ## OVERVIEW
 
 Since I started paying around with unity, I asked my kids of a game idea and my 4 year old daughter I think has actually come up with a good idea.
-It's basic concept is an image appears and, in Ivy's words, you have 5 seconds to draw(copy) it. Now, 5 seconds may be a little quick. So it got me thinking, has this game been done? It must have right? Turns out possibly not, well not that I've found. The closest style game would be Google's Quick Draw where an AI tries to guess what you are drawing. Having thought even more this could actually be a fun learning game for children to learn shapes etc and more difficult fun game for adults.
+It's basic concept is an image appears and, in Ivy's words, you have 5 seconds to draw(copy) it. Now, 5 seconds may be a little quick. So it got me thinking, has this game been done? It must have right? Turns out possibly not, well not that I've found. The closest style game would be Google's Quick Draw where an AI tries to guess what you are drawing. Having thought even more this could actually be a fun learning game for children to learn shapes etc and more difficult fun game for adults. It could even be used for education purposes and has lots of scope for building out into a large application.
 
 ## TECH
 
@@ -26,10 +29,13 @@ I think this would be a good web based game. I have started playing around with 
 
 ~~ All subject to change if a framework or tool is better ~~
 
-- Frontend - React => A tech I am familiar with and i think the compartmentalised components will work well with this project.
-- Backend - NodeJS and Express => Again it's what I'm familiar with.
-- AI - Currently looking at structural similarity index measure (SSIM) as I believe this will be the easiest way to get the project up and running quickly.
+- Frontend - React => I think the compartmentalised components will work well with this project along with the context and hooks separation.
+- Backend - NodeJS and Express
+- AI - I am using Gemini for this as it has the ability to parse base64images and can compare the user's drawing well.
 
-## WHAT WILL I LEARN?
+## WHAT HAVE I LEARNT?
 
-Firstly the canvas element, how to draw with the mouse and add different colours, sizes of "pen" etc. Secondly some kind of AI comparison tool, this is to be determined exactly what I will use, but whatever it will be it will be new to me. Then there's the possibility of making this a mobile/tablet game. Having watched my children play game's on their tablets I think this could be a good mobile style game.
+Canvas - how to draw with the mouse and add different colours, sizes of "pen" etc.
+AI - how to send things to an AI agent, parse the data received and display on the frontend.
+FullStack - this is very much a fullstack project and I've learnt how to send data from the client to the server, then to an AI agent then back to the server and in turn the client.
+Context - This is ongoing but I am getting to grips with how context works and how much easier it makes passing props, variables and functions to components, and multiple components at that.

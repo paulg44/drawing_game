@@ -1,3 +1,5 @@
+// Component to hold the toolbar and buttons needed for the canvas. So far these include a color picker popup, a button to erase all the canvas data and lines, a dropdown to select whether a user wants to use pen or eraser to only erase a small part and a button to submit once a user has completed there picture.
+
 import "../../assets/css/CanvasToolbar.css";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
@@ -6,7 +8,9 @@ import { useCanvasContext } from "../../context/CanvasContext";
 import { useScoreContext } from "../../context/ScoreContext";
 
 const CanvasToolbar = () => {
+  // Variables passed from the canvas context
   const { tool, setTool, color, setColor, clearCanvas } = useCanvasContext();
+  // Variables and function passed form the score context
   const { handleCalculateScore, isDisabled } = useScoreContext();
   return (
     <div className="canvasTools">
