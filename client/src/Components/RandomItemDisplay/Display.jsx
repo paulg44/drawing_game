@@ -1,3 +1,5 @@
+// This component displays a random item from the category the user selected. If a category is not selected we get a message stating that.
+
 import "../../assets/css/Display.css";
 import DisplayBtns from "./DisplayBtns";
 
