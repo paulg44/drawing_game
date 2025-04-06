@@ -1,9 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import { useCanvas } from "../hooks/useCanvas";
 
+//  Create new context
 const CanvasContext = createContext();
 
+// Wraps part of the app in provider to share canvas related states and event handlers
 export const CanvasProvider = ({ children }) => {
+  // Variables and functions from canvas hook
   const {
     tool,
     setTool,
@@ -17,9 +20,11 @@ export const CanvasProvider = ({ children }) => {
     handleMouseMove,
   } = useCanvas();
 
+  // Clears canvas by setting the lines variable to an empty array
   const clearCanvas = () => setLines([]);
 
   return (
+    // Makes canvas state and handlers available to child components
     <CanvasContext.Provider
       value={{
         tool,
@@ -28,9 +33,7 @@ export const CanvasProvider = ({ children }) => {
         setColor,
         lines,
         stageRef,
-
         clearCanvas,
-
         handleMouseDown,
         handleMouseUp,
         handleMouseMove,
@@ -41,4 +44,5 @@ export const CanvasProvider = ({ children }) => {
   );
 };
 
+// Custom hook to access canvas context
 export const useCanvasContext = () => useContext(CanvasContext);
