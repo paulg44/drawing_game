@@ -31,7 +31,7 @@ test("submit btn is disabled after clicked", async () => {
 
   const getScoreBtn = screen.getByTestId("submitImageBtn");
 
-  // user.click(getScoreBtn);
+  user.click(getScoreBtn);
 
   expect(getScoreBtn).toBeInTheDocument();
 });
@@ -47,7 +47,7 @@ test("clearCanvas btn should remain enabled when clicked", async () => {
 
   const clearCanvasBtn = screen.getByTestId("clearAllBtn");
 
-  // user.click(clearCanvasBtn);
+  user.click(clearCanvasBtn);
 
   expect(clearCanvasBtn).toBeInTheDocument();
 });
