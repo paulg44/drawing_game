@@ -1,23 +1,32 @@
+// This file handles the game logic and random category selection, along with the functions of the display buttons
+
 import { useEffect, useState } from "react";
 import { useCategory } from "../context/CategoryContext";
 import { fetchDictionaryAPI } from "../services/dictionaryApi";
 
 export function useGameLogic() {
+  // Random item state
   const [randomItem, setRandomItem] = useState(null);
+
+  // category variable from category context
   const { category } = useCategory();
+
+  // useEffect function for the selection of a random category. If a category is selected this function selects a random item from the list and sets the variable. As its a useEffect if category changes state it will re-run the function
   useEffect(() => {
     if (category?.items?.length > 0) {
       const pickRandom = Math.floor(Math.random() * category.items.length);
       const selectedItem = category.items[pickRandom];
       setRandomItem(selectedItem);
     }
-    console.log(category, randomItem);
-  }, [category, randomItem]);
+    console.log(category);
+  }, [category]);
 
+  // handles selecting a different item on the display page
   const handleRespin = () => {
     setRandomItem(null);
   };
 
+  // Calls the dictionary API to fetch the pronunciation audio for the random item's name. If the audio URL is found, it plays the audio for the user
   const handleDictionaryAPI = async () => {
     if (!randomItem) return;
     const audioUrl = await fetchDictionaryAPI(randomItem.name);
@@ -27,5 +36,6 @@ export function useGameLogic() {
     }
   };
 
+  // states and handlers to be used in other components
   return { randomItem, handleRespin, handleDictionaryAPI };
 }

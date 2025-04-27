@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { connectToDatabase } from "./database/connectionToDatabase.js";
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.use(
   "/images",
   express.static(path.join(__dirname, "client", "assets", "data"))
 );
+
+connectToDatabase();
 
 app.post("/save-image", async (req, res) => {
   const { userImage, metadata } = req.body;
