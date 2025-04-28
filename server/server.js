@@ -31,9 +31,10 @@ app.use(
 
 connectToDatabase();
 
-app.get("/api/shape", async (req, res) => {
+app.post("/api/shape", async (req, res) => {
+  const { userShape } = req.body;
   try {
-    const shape = await Shapes.findOne({ name: "circle" });
+    const shape = await Shapes.findOne({ name: userShape });
     if (!shape) return res.status(404).send("Shape not found");
     res.json(shape);
   } catch (error) {
