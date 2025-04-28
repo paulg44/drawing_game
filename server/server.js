@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { connectToDatabase } from "./database/connectionToDatabase.js";
+import { Shapes } from "./model/shapes.js";
 
 dotenv.config();
 
@@ -29,6 +30,16 @@ app.use(
 );
 
 connectToDatabase();
+
+app.get("/api/shape", async (req, res) => {
+  try {
+    const shape = await Shapes.findOne({ name: "circle" });
+    if (!shape) return res.status(404).send("Shape not found");
+    res.json(shape);
+  } catch (error) {
+    req.status(500).send(error.message);
+  }
+});
 
 app.post("/save-image", async (req, res) => {
   const { userImage, metadata } = req.body;
