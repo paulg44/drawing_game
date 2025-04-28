@@ -31,7 +31,7 @@ function MongoFetchTest() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userShape: randomItem.name }),
+          body: JSON.stringify({ userShape: randomItem }),
         });
         const data = await response.json();
 

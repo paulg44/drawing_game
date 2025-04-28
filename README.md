@@ -2,7 +2,7 @@
 
 ## Current State and things I've tried
 
-The current state of the application is a user can pick a topic (shapes for testing), start the game, draw the corresponding shape on the canvas (change colour and erase also). Once a user is ready to submit there canvas picture, they can click the submit button and the image gets converted to a base64string, then gets sent over to the server along with the randomItem.name, which then in turn gets sent to Gemini to be compared and a "score" is returned.
+The current state of the application is a user can pick a topic (shapes for testing), start the game, draw the corresponding shape on the canvas (change colour and erase also). Once a user is ready to submit there canvas picture, they can click the submit button and the image gets converted to a base64string, then gets sent over to the server along with the randomItem, which then in turn gets sent to Gemini to be compared and a "score" is returned.
 
 ## Ongoing and next steps
 

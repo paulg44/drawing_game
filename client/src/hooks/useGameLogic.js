@@ -29,7 +29,7 @@ export function useGameLogic() {
   // Calls the dictionary API to fetch the pronunciation audio for the random item's name. If the audio URL is found, it plays the audio for the user
   const handleDictionaryAPI = async () => {
     if (!randomItem) return;
-    const audioUrl = await fetchDictionaryAPI(randomItem.name);
+    const audioUrl = await fetchDictionaryAPI(randomItem);
     if (audioUrl) {
       const audio = new Audio(audioUrl);
       audio.play();

@@ -1,14 +1,14 @@
 export const calculateScore = async (base64String, imageName) => {
   try {
     const response = await fetch(
-      // "http://localhost:3020/compare-images",
-      "https://drawing-game-6s94.onrender.com/compare-images",
+      "http://localhost:3020/compare-images",
+      // "https://drawing-game-6s94.onrender.com/compare-images",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
+        // credentials: "include",
         body: JSON.stringify({
           userImage: base64String,
           randomImageName: imageName,

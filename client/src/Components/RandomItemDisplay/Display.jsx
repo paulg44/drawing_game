@@ -16,16 +16,17 @@ function Display({ randomItem, handleRespin, handleDictionaryAPI }) {
   return (
     <div className="pictureDisplayContainer">
       <DisplayBtns
-        randomItem={randomItem.name}
+        randomItem={randomItem}
         onRespin={handleRespin}
         onSound={handleDictionaryAPI}
       />
 
+      {/* This needs to be displayed from the database */}
       <div className="randomDisplayItem">
         {randomItem && (
           <>
-            <h2>{randomItem.name}</h2>
-            <img src={randomItem.image} alt={randomItem.name} />
+            <h2>{randomItem}</h2>
+            <img src={randomItem.image} alt={randomItem} />
           </>
         )}
       </div>

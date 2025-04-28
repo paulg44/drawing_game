@@ -21,7 +21,7 @@ export const ScoreProvider = ({ children, randomItem }) => {
       const userImageData = stageRef.current.toDataURL();
       const base64String = userImageData.split(",")[1];
 
-      const result = await calculateScore(base64String, randomItem.name);
+      const result = await calculateScore(base64String, randomItem);
       console.log("Score:", result);
       setScore(result);
       setIsDisabled(false);
