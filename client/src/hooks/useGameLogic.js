@@ -14,27 +14,27 @@ export function useGameLogic() {
   const { category } = useCategory();
 
   // useEffect function for the selection of a random category. If a category is selected this function selects a random item from the list and sets the variable. As its a useEffect if category changes state it will re-run the function
-  useEffect(() => {
+
+  const getMongoData = async () => {
     if (category?.items?.length > 0) {
       const pickRandom = Math.floor(Math.random() * category.items.length);
       const selectedItem = category.items[pickRandom];
 
-      const getMongoData = async () => {
-        const data = await fetchFromMongo(selectedItem);
-        setLoading(true);
-        setRandomItem(data);
-        console.log(data);
-        setLoading(false);
-      };
-
-      getMongoData();
+      const data = await fetchFromMongo(selectedItem);
+      setLoading(true);
+      setRandomItem(data);
+      console.log(data);
+      setLoading(false);
     }
-    console.log(category);
-  }, [category]);
+  };
 
   // handles selecting a different item on the display page
+  useEffect(() => {
+    getMongoData();
+  }, [category]);
+
   const handleRespin = () => {
-    setRandomItem(null);
+    getMongoData();
   };
 
   // Calls the dictionary API to fetch the pronunciation audio for the random item's name. If the audio URL is found, it plays the audio for the user

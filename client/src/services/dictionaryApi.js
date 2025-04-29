@@ -1,7 +1,7 @@
 export const fetchDictionaryAPI = async (randomItem) => {
   try {
     const apiResponse = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${randomItem}`
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${randomItem.name}`
     );
     const apiData = await apiResponse.json();
     console.log(apiData);
