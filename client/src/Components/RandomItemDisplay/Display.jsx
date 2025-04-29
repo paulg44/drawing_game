@@ -3,7 +3,11 @@
 import "../../assets/css/Display.css";
 import DisplayBtns from "./DisplayBtns";
 
-function Display({ randomItem, handleRespin, handleDictionaryAPI }) {
+function Display({ randomItem, handleRespin, handleDictionaryAPI, loading }) {
+  if (loading) {
+    return <h2>Loading....</h2>;
+  }
+
   if (!randomItem) {
     return (
       <div>
@@ -15,18 +19,14 @@ function Display({ randomItem, handleRespin, handleDictionaryAPI }) {
 
   return (
     <div className="pictureDisplayContainer">
-      <DisplayBtns
-        randomItem={randomItem}
-        onRespin={handleRespin}
-        onSound={handleDictionaryAPI}
-      />
+      <DisplayBtns onRespin={handleRespin} onSound={handleDictionaryAPI} />
 
       {/* This needs to be displayed from the database */}
       <div className="randomDisplayItem">
         {randomItem && (
           <>
-            <h2>{randomItem}</h2>
-            <img src={randomItem.image} alt={randomItem} />
+            <h2>{randomItem.name}</h2>
+            <img src={randomItem.image} alt={randomItem.name} />
           </>
         )}
       </div>

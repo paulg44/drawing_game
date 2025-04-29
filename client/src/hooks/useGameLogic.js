@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { useCategory } from "../context/CategoryContext";
 import { fetchDictionaryAPI } from "../services/dictionaryApi";
+import { fetchFromMongo } from "../services/databaseApi";
 
 export function useGameLogic() {
   // Random item state
-  const [randomItem, setRandomItem] = useState(null);
+  const [randomItem, setRandomItem] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // category variable from category context
   const { category } = useCategory();
@@ -16,7 +18,16 @@ export function useGameLogic() {
     if (category?.items?.length > 0) {
       const pickRandom = Math.floor(Math.random() * category.items.length);
       const selectedItem = category.items[pickRandom];
-      setRandomItem(selectedItem);
+
+      const getMongoData = async () => {
+        const data = await fetchFromMongo(selectedItem);
+        setLoading(true);
+        setRandomItem(data);
+        console.log(data);
+        setLoading(false);
+      };
+
+      getMongoData();
     }
     console.log(category);
   }, [category]);
@@ -37,5 +48,5 @@ export function useGameLogic() {
   };
 
   // states and handlers to be used in other components
-  return { randomItem, handleRespin, handleDictionaryAPI };
+  return { randomItem, handleRespin, handleDictionaryAPI, loading };
 }
