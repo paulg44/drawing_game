@@ -4,14 +4,24 @@ import "../../assets/css/CanvasToolbar.css";
 import { HexColorPicker } from "react-colorful";
 import { Popup } from "reactjs-popup";
 import { IoColorPaletteOutline, IoTrashBin } from "react-icons/io5";
+import { useState } from "react";
 import { useCanvasContext } from "../../context/CanvasContext";
 import { useScoreContext } from "../../context/ScoreContext";
+import ScorePopup from "../Score/ScorePopup";
 
 const CanvasToolbar = () => {
   // Variables passed from the canvas context
   const { tool, setTool, color, setColor, clearCanvas } = useCanvasContext();
   // Variables and function passed from the score context, this handles the submitting the drawing
   const { handleCalculateScore, isDisabled } = useScoreContext();
+  const { score } = useScoreContext();
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = async () => {
+    await handleCalculateScore(); // Score is calculated and saved to context
+    setShowPopup(true); // ✅ Trigger the popup
+  };
+
   return (
     <div className="canvasTools">
       <select
@@ -51,7 +61,7 @@ const CanvasToolbar = () => {
           <IoTrashBin />
         </button>
         <button
-          onClick={handleCalculateScore}
+          onClick={handleSubmit}
           disabled={isDisabled}
           className="submitUserDrawingBtn"
           data-testid="submitImageBtn"
@@ -59,6 +69,10 @@ const CanvasToolbar = () => {
           &#10003;
         </button>
       </div>
+
+      {showPopup && (
+        <ScorePopup score={score} onClose={() => setShowPopup(false)} />
+      )}
     </div>
   );
 };
