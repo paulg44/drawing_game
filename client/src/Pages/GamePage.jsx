@@ -4,9 +4,6 @@ import "../assets/css/GamePage.css";
 import { useGameLogic } from "../hooks/useGameLogic";
 import Canvas from "../Components/Canvas/Canvas";
 import Display from "../Components/RandomItemDisplay/Display";
-import ScorePopup from "../Components/Score/ScorePopup";
-import { useScoreContext } from "../context/ScoreContext";
-import { useState } from "react";
 
 function GamePage() {
   // Variables from game logic file

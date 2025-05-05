@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "../../assets/css/ScorePopup.css";
 
+// Make score interactive. Stars? have a sad face if you need to retry
+// Add a play again button, re use respin?
 const ScorePopup = ({ score, onClose }) => {
   return (
     <div className="popupContainer">

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { calculateScore } from "../services/canvasApi";
 import { useCanvasContext } from "./CanvasContext";
 
@@ -11,7 +10,6 @@ export const ScoreProvider = ({ children, randomItem }) => {
   const [score, setScore] = useState("Awaiting Score...");
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const navigate = useNavigate();
   const { stageRef } = useCanvasContext();
 
   // This function is triggered when the user submits their drawing to be scored. It captures the canvas content as a base64-encoded string, paired with the random item's name, and sends this data to the scoring API. While waiting for a response, it disables the submit button to prevent repeat submissions.
@@ -21,11 +19,10 @@ export const ScoreProvider = ({ children, randomItem }) => {
       const userImageData = stageRef.current.toDataURL();
       const base64String = userImageData.split(",")[1];
 
-      const result = await calculateScore(base64String, randomItem);
+      const result = await calculateScore(base64String, randomItem.name);
       console.log("Score:", result);
       setScore(result);
       setIsDisabled(false);
-      // navigate("/scoreDisplay");
     } catch (error) {
       console.error("Error calculating score in context", error);
     }
