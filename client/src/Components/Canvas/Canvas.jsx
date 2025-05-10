@@ -22,8 +22,7 @@ function Canvas({ randomItem }) {
     // Variables from canvas context
     const { stageRef, lines, handleMouseDown, handleMouseMove, handleMouseUp } =
       useCanvasContext();
-    // Import the score as we need it for now to be displayed after a user clicks the submit btn for a score. This may not be needed in the future when we create a displayScore page
-    const { score } = useScoreContext();
+
     const canvasContainerRef = useRef(null);
     const [canvasSize, setCanvasSize] = useState({
       width: window.innerWidth,
@@ -54,7 +53,6 @@ function Canvas({ randomItem }) {
 
     return (
       <div className="canvasContainer" ref={canvasContainerRef}>
-        <p>{score === null ? "Awaiting score..." : score}</p>
         <CanvasToolbar />
         {/* Props from canvasContext are passed into CanvasStage for rendering and interaction. */}
         <CanvasStage

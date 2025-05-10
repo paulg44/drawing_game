@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CiStar } from "react-icons/ci";
 import "../../assets/css/ScorePopup.css";
+import { useGameLogic } from "../../hooks/useGameLogic";
+import { Link } from "react-router-dom";
 
 /* Make score interactive. Stars? have a sad face if you need to retry 
 - if score excellent 3 stars light up etc
@@ -10,8 +12,14 @@ import "../../assets/css/ScorePopup.css";
 */
 // Add a play again button, re use respin?
 const ScorePopup = ({ score, onClose }) => {
+  const { handleRespin } = useGameLogic();
+
   const starScoreClass = score;
-  console.log(starScoreClass);
+
+  const handlePlayAgain = async () => {
+    handleRespin();
+    onClose();
+  };
 
   return (
     <div className="popupContainer">
@@ -23,9 +31,12 @@ const ScorePopup = ({ score, onClose }) => {
           <CiStar className="star starTwo" />
           <CiStar className="star starThree" />
         </div>
-        <button className="scoreCloseBtn" onClick={onClose}>
-          X
+        <button className="playAgainBtn" onClick={handlePlayAgain}>
+          Play Again?
         </button>
+        <Link to={"/"} className="homeBtn">
+          Go Home?
+        </Link>
       </div>
     </div>
   );

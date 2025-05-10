@@ -15,11 +15,11 @@ const CanvasToolbar = () => {
   // Variables and function passed from the score context, this handles the submitting the drawing
   const { handleCalculateScore, isDisabled } = useScoreContext();
   const { score } = useScoreContext();
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = async () => {
     await handleCalculateScore(); // Score is calculated and saved to context
-    // setShowPopup(true); // ✅ Trigger the popup
+    setShowPopup(true); // ✅ Trigger the popup
   };
 
   return (
