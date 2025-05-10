@@ -7,7 +7,7 @@ const ScoreContext = createContext();
 
 // Wraps part of the app in provider to share score related states and event handlers
 export const ScoreProvider = ({ children, randomItem }) => {
-  const [score, setScore] = useState("Awaiting Score...");
+  const [score, setScore] = useState("Good");
   const [isDisabled, setIsDisabled] = useState(false);
 
   const { stageRef } = useCanvasContext();
