@@ -11,9 +11,7 @@ import { Link } from "react-router-dom";
 - set the class dependant on score
 */
 // Add a play again button, re use respin?
-const ScorePopup = ({ score, onClose }) => {
-  const { handleRespin } = useGameLogic();
-
+const ScorePopup = ({ score, onClose, handleRespin }) => {
   const starScoreClass = score;
 
   const handlePlayAgain = async () => {

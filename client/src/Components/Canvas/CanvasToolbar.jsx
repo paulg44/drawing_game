@@ -9,7 +9,7 @@ import { useCanvasContext } from "../../context/CanvasContext";
 import { useScoreContext } from "../../context/ScoreContext";
 import ScorePopup from "../Score/ScorePopup";
 
-const CanvasToolbar = () => {
+const CanvasToolbar = ({ handleRespin }) => {
   // Variables passed from the canvas context
   const { tool, setTool, color, setColor, clearCanvas } = useCanvasContext();
   // Variables and function passed from the score context, this handles the submitting the drawing
@@ -71,7 +71,11 @@ const CanvasToolbar = () => {
       </div>
 
       {showPopup && (
-        <ScorePopup score={score} onClose={() => setShowPopup(false)} />
+        <ScorePopup
+          score={score}
+          handleRespin={handleRespin}
+          onClose={() => setShowPopup(false)}
+        />
       )}
     </div>
   );

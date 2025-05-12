@@ -17,7 +17,7 @@ function GamePage() {
         handleRespin={handleRespin}
         handleDictionaryAPI={handleDictionaryAPI}
       />
-      <Canvas randomItem={randomItem} />
+      <Canvas randomItem={randomItem} handleRespin={handleRespin} />
     </div>
   );
 }

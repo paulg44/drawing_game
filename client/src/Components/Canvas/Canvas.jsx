@@ -8,7 +8,7 @@ import CanvasToolbar from "./CanvasToolbar";
 import { ScoreProvider, useScoreContext } from "../../context/ScoreContext";
 
 // randomItem is passed into this component and then on into the ScoreProvider as we need the name of the randomItem in the handleCalculateScore function
-function Canvas({ randomItem }) {
+function Canvas({ randomItem, handleRespin }) {
   return (
     // Wrap canvas in CanvasProvider and ScoreProvider to give child components access to canvas state and scoring logic.
     <CanvasProvider>
@@ -53,7 +53,7 @@ function Canvas({ randomItem }) {
 
     return (
       <div className="canvasContainer" ref={canvasContainerRef}>
-        <CanvasToolbar />
+        <CanvasToolbar handleRespin={handleRespin}/>
         {/* Props from canvasContext are passed into CanvasStage for rendering and interaction. */}
         <CanvasStage
           stageRef={stageRef}
