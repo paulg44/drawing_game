@@ -2,10 +2,13 @@
 
 import "../../assets/css/Canvas.css";
 import { useEffect, useRef, useState } from "react";
-import { CanvasProvider, useCanvasContext } from "../../context/CanvasContext";
+import {
+  CanvasProvider,
+  useCanvasContext,
+} from "../../providers/CanvasContext";
 import CanvasStage from "./CanvasStage";
 import CanvasToolbar from "./CanvasToolbar";
-import { ScoreProvider, useScoreContext } from "../../context/ScoreContext";
+import { ScoreProvider, useScoreContext } from "../../providers/ScoreContext";
 
 // randomItem is passed into this component and then on into the ScoreProvider as we need the name of the randomItem in the handleCalculateScore function
 function Canvas({ randomItem, handleRespin }) {
@@ -53,7 +56,7 @@ function Canvas({ randomItem, handleRespin }) {
 
     return (
       <div className="canvasContainer" ref={canvasContainerRef}>
-        <CanvasToolbar handleRespin={handleRespin}/>
+        <CanvasToolbar handleRespin={handleRespin} />
         {/* Props from canvasContext are passed into CanvasStage for rendering and interaction. */}
         <CanvasStage
           stageRef={stageRef}

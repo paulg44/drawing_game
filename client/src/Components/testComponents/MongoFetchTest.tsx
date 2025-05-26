@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCategory } from "../../context/CategoryContext";
+import { useCategory } from "../../providers/CategoryContext";
 import { useGameLogic } from "../../hooks/useGameLogic";
 import kidsData from "../../assets/data/kidsCategories.json";
 

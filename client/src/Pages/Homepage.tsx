@@ -3,7 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
-import { useCategory } from "../context/CategoryContext";
+import { useCategory } from "../providers/CategoryContext";
 import backgroundIMG from "../assets/images/backgroundHomepage.jpg";
 import { useSound } from "use-sound";
 import btnFX from "../assets/audio/fx/mixkit-game-ball-tap-2073.wav";

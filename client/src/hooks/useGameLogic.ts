@@ -1,7 +1,7 @@
 // This file handles the game logic and random category selection, along with the functions of the display buttons
 
 import { useEffect, useState } from "react";
-import { useCategory } from "../context/CategoryContext";
+import { useCategory } from "../providers/CategoryContext";
 import { fetchDictionaryAPI } from "../services/dictionaryApi";
 import { fetchFromMongo } from "../services/databaseApi";
 

@@ -1,9 +1,10 @@
 // This file holds all the canvas logic, handlers and states. For the canvas it uses Konva. If you want documentation for Konva or more information about how Konva works go here: https://konvajs.org/docs/react/index.html
 import { useState, useRef } from "react";
+import { ToolType } from "../types/canvasContextTypes";
 
 export const useCanvas = () => {
   // States for the canvas
-  const [tool, setTool] = useState("pen");
+  const [tool, setTool] = useState<ToolType>("pen");
   const [lines, setLines] = useState([]);
   const [color, setColor] = useState("#fff");
 

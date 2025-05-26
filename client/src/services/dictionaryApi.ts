@@ -1,9 +1,11 @@
-export const fetchDictionaryAPI = async (randomItem) => {
+import { DictionaryEntry } from "../types/dictionaryApiTypes";
+
+export const fetchDictionaryAPI = async (randomItem: { name: string }) => {
   try {
     const apiResponse = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${randomItem.name}`
     );
-    const apiData = await apiResponse.json();
+    const apiData: DictionaryEntry[] = await apiResponse.json();
     console.log(apiData);
     // return apiData;
     if (apiData[0]?.phonetics?.length) {
