@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from "react";
 import { calculateScore } from "../services/canvasApi";
 import { useCanvasContext } from "./CanvasContext";
+import { ProviderProps } from "../types/common";
+import { ScoreContextType } from "../types/scoreContextTypes";
 
 // Create new context
-const ScoreContext = createContext();
+const ScoreContext = createContext<ScoreContextType | null>(null);
 
 // Wraps part of the app in provider to share score related states and event handlers
-export const ScoreProvider = ({ children, randomItem }) => {
-  const [score, setScore] = useState("Good");
-  const [isDisabled, setIsDisabled] = useState(false);
+export const ScoreProvider = ({ children, randomItem }: ProviderProps) => {
+  const [score, setScore] = useState<string>("Good");
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const { stageRef } = useCanvasContext();
 
@@ -16,10 +18,16 @@ export const ScoreProvider = ({ children, randomItem }) => {
   const handleCalculateScore = async () => {
     try {
       setIsDisabled(true);
+
+      if (!stageRef?.current) {
+        console.warn("Canvas stageRef is not available");
+        return;
+      }
+
       const userImageData = stageRef.current.toDataURL();
       const base64String = userImageData.split(",")[1];
 
-      const result = await calculateScore(base64String, randomItem.name);
+      const result = await calculateScore(base64String, randomItem?.name);
       console.log("Score:", result);
       setScore(result);
       setIsDisabled(false);
@@ -37,4 +45,10 @@ export const ScoreProvider = ({ children, randomItem }) => {
 };
 
 // Custom hook to access score context
-export const useScoreContext = () => useContext(ScoreContext);
+export const useScoreContext = (): ScoreContextType => {
+  const context = useContext(ScoreContext);
+  if (!context) {
+    throw new Error("useScoreContext must be used within a ScoreProvider");
+  }
+  return context;
+};
