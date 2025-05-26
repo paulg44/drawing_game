@@ -1,5 +1,11 @@
 export type ToolType = "pen" | "eraser";
 
+export interface LinesType {
+  tool: ToolType;
+  points: number[];
+  color: string;
+}
+
 export interface CanvasContextType {
   tool: ToolType;
   setTool: (tool: ToolType) => void;

@@ -1,4 +1,7 @@
-export const calculateScore = async (base64String, imageName) => {
+export const calculateScore = async (
+  base64String: string,
+  imageName: string
+) => {
   try {
     const response = await fetch(
       "http://localhost:3020/compare-images",

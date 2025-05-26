@@ -8,7 +8,7 @@ import {
 } from "../../providers/CanvasContext";
 import CanvasStage from "./CanvasStage";
 import CanvasToolbar from "./CanvasToolbar";
-import { ScoreProvider, useScoreContext } from "../../providers/ScoreContext";
+import { ScoreProvider } from "../../providers/ScoreContext";
 
 // randomItem is passed into this component and then on into the ScoreProvider as we need the name of the randomItem in the handleCalculateScore function
 function Canvas({ randomItem, handleRespin }) {

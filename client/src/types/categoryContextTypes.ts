@@ -1,4 +1,9 @@
+export interface CategoryType {
+  name: string;
+  items: string[];
+}
+
 export interface CategoryContextType {
-  category: string | null;
-  setCategory: (category: string) => void;
+  category: CategoryType | null;
+  setCategory: (category: CategoryType) => void;
 }

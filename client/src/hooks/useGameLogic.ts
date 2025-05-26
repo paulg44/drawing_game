@@ -5,9 +5,13 @@ import { useCategory } from "../providers/CategoryContext";
 import { fetchDictionaryAPI } from "../services/dictionaryApi";
 import { fetchFromMongo } from "../services/databaseApi";
 
+interface RandomItemType {
+  name: string;
+}
+
 export function useGameLogic() {
   // Random item state
-  const [randomItem, setRandomItem] = useState([]);
+  const [randomItem, setRandomItem] = useState<RandomItemType | null>(null);
   const [loading, setLoading] = useState(true);
 
   // category variable from category context
@@ -16,9 +20,11 @@ export function useGameLogic() {
   // useEffect function for the selection of a random category. If a category is selected this function selects a random item from the list and sets the variable. As its a useEffect if category changes state it will re-run the function
 
   const getMongoData = async () => {
-    if (category?.items?.length > 0) {
-      const pickRandom = Math.floor(Math.random() * category.items.length);
-      const selectedItem = category.items[pickRandom];
+    if (category?.items?.length ?? 0 > 0) {
+      const pickRandom = Math.floor(Math.random() * category!.items.length);
+      const selectedItem = category?.items[pickRandom];
+
+      if (!selectedItem) return;
 
       const data = await fetchFromMongo(selectedItem);
       setLoading(true);

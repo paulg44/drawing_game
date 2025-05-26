@@ -1,6 +1,6 @@
 // This will hold the logic for fetching the data from the database, currently the code i need is in MongoFetchTest
 
-export const fetchFromMongo = async (randomItem) => {
+export const fetchFromMongo = async (randomItem: string) => {
   try {
     const response = await fetch("http://localhost:3020/api/shape", {
       method: "POST",

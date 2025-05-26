@@ -1,11 +1,12 @@
 // This file holds all the canvas logic, handlers and states. For the canvas it uses Konva. If you want documentation for Konva or more information about how Konva works go here: https://konvajs.org/docs/react/index.html
 import { useState, useRef } from "react";
-import { ToolType } from "../types/canvasContextTypes";
+import { ToolType, LinesType } from "../types/canvasContextTypes";
+import { KonvaEventObject } from "konva/lib/Node";
 
 export const useCanvas = () => {
   // States for the canvas
   const [tool, setTool] = useState<ToolType>("pen");
-  const [lines, setLines] = useState([]);
+  const [lines, setLines] = useState<LinesType[]>([]);
   const [color, setColor] = useState("#fff");
 
   // Reference, will toggle true when user starts drawing
@@ -14,12 +15,12 @@ export const useCanvas = () => {
   // stageRef is a reference to the Konva Stage, allowing us to interact with the canvas element and get the pointer position
   const stageRef = useRef(false);
 
-  const handleDisableScroll = (e) => {
+  const handleDisableScroll = (e: TouchEvent) => {
     e.preventDefault();
   };
 
   // handler for when a user either clicks the mouse or puts a finger on touchscreen
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     e.evt.preventDefault();
     isDrawing.current = true;
     document.addEventListener("touchmove", handleDisableScroll, {
@@ -27,20 +28,26 @@ export const useCanvas = () => {
     });
 
     // lines holds the array of lines a user has drawn on the canvas
-    const pos = e.target.getStage().getPointerPosition();
+    const pos = e.target.getStage()?.getPointerPosition();
+    if (!pos) {
+      return;
+    }
     setLines([...lines, { tool, points: [pos.x, pos.y], color }]);
   };
 
   // If the user is drawing, this handler updates the last line with new points as the mouse or finger move
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     // e.preventDefault();
     if (!isDrawing.current) {
       return;
     }
     const stage = e.target.getStage();
-    const point = stage.getPointerPosition();
+    const point = stage?.getPointerPosition();
     let lastLine = lines[lines.length - 1];
 
+    if (!point) {
+      return;
+    }
     lastLine.points = lastLine.points.concat([point.x, point.y]);
 
     lines.splice(lines.length - 1, 1, lastLine);
