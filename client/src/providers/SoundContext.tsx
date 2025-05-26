@@ -1,14 +1,18 @@
 import { createContext, useContext, useState } from "react";
 import { SoundContextTypes } from "../types/soundContextTypes";
-import { ProviderProps } from "../types/common";
+import { ProviderPropsTypes } from "../types/common";
 
 const SoundContext = createContext<SoundContextTypes | null>(null);
+
+interface SoundProviderProps extends ProviderPropsTypes {
+  initialSound?: boolean;
+}
 
 export function SoundProvider({
   children,
   initialSound = true,
-}: ProviderProps) {
-  const [enableSound, setEnableSound] = useState(initialSound);
+}: SoundProviderProps) {
+  const [enableSound, setEnableSound] = useState<boolean>(initialSound);
   return (
     <SoundContext.Provider value={{ enableSound, setEnableSound }}>
       {children}

@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
-import { ProviderProps } from "../types/common";
+import { ProviderPropsTypes } from "../types/common";
 import { CategoryContextType } from "../types/categoryContextTypes";
 
 // Creates a new context
 const CategoryContext = createContext<CategoryContextType | null>(null);
 
-interface CategoryProviderProps extends ProviderProps {
+// Two ways of doing this. Can either extend the common one we are importing or create a new interface (like I have for score, check scoreContextTypes.ts)
+interface CategoryProviderProps extends ProviderPropsTypes {
   initialCategory?: string | null;
 }
 

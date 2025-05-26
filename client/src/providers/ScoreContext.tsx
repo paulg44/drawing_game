@@ -1,14 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { calculateScore } from "../services/canvasApi";
 import { useCanvasContext } from "./CanvasContext";
-import { ProviderProps } from "../types/common";
-import { ScoreContextType } from "../types/scoreContextTypes";
+import { ScoreContextType, ScorePropsTypes } from "../types/scoreContextTypes";
 
 // Create new context
 const ScoreContext = createContext<ScoreContextType | null>(null);
 
 // Wraps part of the app in provider to share score related states and event handlers
-export const ScoreProvider = ({ children, randomItem }: ProviderProps) => {
+export const ScoreProvider = ({ children, randomItem }: ScorePropsTypes) => {
   const [score, setScore] = useState<string>("Good");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 

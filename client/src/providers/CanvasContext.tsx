@@ -1,13 +1,13 @@
 import { createContext, useContext, ReactNode } from "react";
 import { useCanvas } from "../hooks/useCanvas";
 import { CanvasContextType } from "../types/canvasContextTypes";
-import { ProviderProps } from "../types/common";
+import { ProviderPropsTypes } from "../types/common";
 
 //  Create new context
 const CanvasContext = createContext<CanvasContextType | null>(null);
 
 // Wraps part of the app in provider to share canvas related states and event handlers
-export const CanvasProvider = ({ children }: ProviderProps) => {
+export const CanvasProvider = ({ children }: ProviderPropsTypes) => {
   // Variables and functions from canvas hook
   const {
     tool,

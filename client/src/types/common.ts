@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 
-export interface ProviderProps {
+export interface ProviderPropsTypes {
   children: ReactNode;
-  randomItem?: { name: string };
-  initialSound: boolean;
 }
