@@ -3,6 +3,7 @@
 import { ImSpinner11 } from "react-icons/im";
 import { PiSpeakerLowBold } from "react-icons/pi";
 import "../../assets/css/DisplayBtns.css";
+import HomeButton from "../Shared/HomeButton";
 
 const DisplayBtns = ({ onRespin, onSound }) => {
   return (
@@ -13,6 +14,7 @@ const DisplayBtns = ({ onRespin, onSound }) => {
       <button className="displayBtn" onClick={onSound} data-testid="soundBtn">
         <PiSpeakerLowBold />
       </button>
+      <HomeButton />
     </div>
   );
 };
