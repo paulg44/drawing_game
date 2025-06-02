@@ -1,0 +1,21 @@
+.justDrawContainer {
+  position: relative;
+}
+
+.homeBtnJustDraw {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.fullWidthCanvas {
+  width: 100vw;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 600px) {
+  .justDrawContainer {
+    height: auto;
+    margin: 0;
+  }
+}

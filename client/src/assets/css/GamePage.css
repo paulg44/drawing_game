@@ -6,7 +6,6 @@
 
 /* Display Side */
 .pictureDisplayContainer {
-  border: 2px solid blue;
   width: 50vw;
   height: 100vh;
 }
@@ -25,7 +24,6 @@
 
 /* Canvas Side */
 .canvasContainer {
-  border: 2px solid red;
   width: 50vw;
   height: 100vh;
 }

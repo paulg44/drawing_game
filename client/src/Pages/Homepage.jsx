@@ -1,6 +1,6 @@
 // The landing page for the app. Renders the categories, as buttons. Once a category is selected a user can start a game.
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import kidsData from "../assets/data/kidsCategories.json";
 import { useCategory } from "../context/CategoryContext";
@@ -42,6 +42,7 @@ function Homepage() {
       }}
     >
       <h1>Welcome to Ivy's game!</h1>
+      <Link to="just-draw">Just want to draw? Click me!</Link>
       <div className="categoryListContainer">
         {/* Renders a button from each available category */}
         {mainCategories.map((categoryItem, index) => (
